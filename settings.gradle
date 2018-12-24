@@ -1,1 +1,1 @@
-include ':sample', ':base-redcode', ':base-redcode-mvvm', ':mvvm-restful'
+include ':sample', ':base-redcode', ':base-redcode-mvvm', ':base-redcode-mvvm-restful'

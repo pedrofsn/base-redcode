@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">base</string>
+    <string name="select">Selecione</string>
+    <string name="o_servidor_demorou_a_responder">O servidor demorou a responder</string>
+    <string name="ok">Ok</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="aviso">Aviso</string>
+    <string name="atencao">Atenção</string>
+    <string name="erro">Erro</string>
+    <string name="select_image">Selecione uma imagem</string>
+    <string name="_wait">Aguarde…</string>
+    <string name="password_doesnt_match">A confirmação da senha não coincide com a nova senha</string>
+    <string name="email">E-mail</string>
+    <string name="search">Pesquisar</string>
+    <string name="loading">Carregando</string>
+    <string name="message_open_settings">Vá em \'Aplicativos e Notificações\' e depois em \'Notificações\' e acesse as
+        configurações do aplicativo
+    </string>
+    <string name="version_app">Versão do APP</string>
+    <string name="need_update">Atualização necessária</string>
+    <string name="label_force_update">Para continuar utilizando o aplicativo atualize.</string>
+    <string name="update_app">Atualizar Aplicativo</string>
+    <string name="refuse">Recusar</string>
+    <string name="accept">Aceitar</string>
+    <string name="push_notifications">Notificações via PUSH</string>
+</resources>

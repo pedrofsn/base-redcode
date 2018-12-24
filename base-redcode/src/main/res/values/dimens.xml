@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="respiro_visual">16dp</dimen>
+    <dimen name="respiro_visual_menor">10dp</dimen>
+    <dimen name="border">25dp</dimen>
+    <dimen name="font_smallest">11sp</dimen>
+</resources>

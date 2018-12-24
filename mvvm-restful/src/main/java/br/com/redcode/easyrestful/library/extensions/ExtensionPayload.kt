@@ -1,4 +1,4 @@
-package br.com.redcode.easyrestful.library
+package br.com.redcode.easyrestful.library.extensions
 
 import br.com.redcode.base.extensions.extract
 import br.com.redcode.base.rest.PayloadError

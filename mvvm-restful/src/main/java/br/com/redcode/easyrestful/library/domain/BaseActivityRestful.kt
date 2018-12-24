@@ -1,36 +1,21 @@
-package br.com.redcode.easyrestful.library
+package br.com.redcode.easyrestful.library.domain
 
-
-import androidx.databinding.ViewDataBinding
+import br.com.redcode.base.activities.BaseActivity
 import br.com.redcode.base.utils.Alerts
-import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
-import br.com.redcode.base.mvvm.domain.activity.BaseActivityMVVM
-import br.com.redcode.base.mvvm.extensions.isValid
+import br.com.redcode.base.utils.Constants
 import br.com.redcode.easyreftrofit.library.CallbackNetworkRequest
 import br.com.redcode.easyreftrofit.library.model.ErrorHandled
+import br.com.redcode.easyrestful.library.R
 
-abstract class BaseActivityMVVMRestful<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseActivityMVVM<B, VM>(),
-        CallbackNetworkRequest {
+abstract class BaseActivityRestful : BaseActivity(), CallbackNetworkRequest {
 
-    override fun handleEvent(event: String, obj: Any?) {
-        val string = if (obj != null && obj is String) obj else null
-
-        when (event) {
-            "onNetworkHttpError" -> if (obj != null && obj is ErrorHandled) onNetworkHttpError(obj)
-            "onNetworkUnknownError" -> string?.let { onNetworkUnknownError(it) }
-            "onNetworkTimeout" -> onNetworkTimeout()
-            "onNetworkError" -> onNetworkError()
-            else -> super.handleEvent(event, obj)
-        }
-    }
-
-    // CTRL+C AND CTRL+V FROM BaseActivityRestful - START
+    // CTRL+C AND CTRL+V FROM BaseActivityMVVMRestful - START
 
     override fun onNetworkHttpError(errorHandled: ErrorHandled) {
         errorHandled.apply {
             hideProgress()
             val callback = {
-                if (actionAPI.isValid()) {
+                if (Constants.INVALID_VALUE != actionAPI) {
                     handleActionAPI(actionAPI, id)
                 }
             }
@@ -39,7 +24,7 @@ abstract class BaseActivityMVVMRestful<B : ViewDataBinding, VM : AbstractBaseVie
                 callback.invoke()
             } else {
                 Alerts.showDialogOk(
-                        context = this@BaseActivityMVVMRestful,
+                        context = this@BaseActivityRestful,
                         mensagem = message,
                         onOk = callback
                 )
@@ -66,6 +51,6 @@ abstract class BaseActivityMVVMRestful<B : ViewDataBinding, VM : AbstractBaseVie
         )
     }
 
-    // CTRL+C AND CTRL+V FROM BaseActivityRestful - END
+    // CTRL+C AND CTRL+V FROM BaseActivityMVVMRestful - END
 
 }

@@ -1,4 +1,4 @@
-package br.com.redcode.easyrestful.library
+package br.com.redcode.easyrestful.library.impl.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import br.com.redcode.base.utils.Constants.INVALID_VALUE

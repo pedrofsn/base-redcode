@@ -1,4 +1,4 @@
-package br.com.redcode.easyrestful.library
+package br.com.redcode.easyrestful.library.domain
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -9,6 +9,7 @@ import br.com.redcode.base.utils.Alerts
 import br.com.redcode.base.utils.Constants
 import br.com.redcode.easyreftrofit.library.CallbackNetworkRequest
 import br.com.redcode.easyreftrofit.library.model.ErrorHandled
+import br.com.redcode.easyrestful.library.R
 import vcm.github.webkit.proview.ProWebView
 
 abstract class BaseActivityWebViewRestful : BaseActivityWebView(), CallbackNetworkRequest {

@@ -1,4 +1,4 @@
-package br.com.redcode.easyrestful.library
+package br.com.redcode.easyrestful.library.domain
 
 import br.com.redcode.easyreftrofit.library.CallbackNetworkRequest
 

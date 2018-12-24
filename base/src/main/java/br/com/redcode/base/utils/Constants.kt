@@ -23,8 +23,5 @@ object Constants {
     const val ERROR_API_BACK_TO_PREVIOUS_ACTIVITY = 2
     const val ERROR_API_CLEAN_AND_FORCE_LOGIN = 3
     const val ERROR_API_TOKEN_EXPIRATION = 4
-    const val ERROR_API_FORCE_UPDATE = 6
-
-    const val TAG_PUSH_NOTIFICATION_ID: String = "aviso_id"
 
 }

@@ -1,4 +1,4 @@
-package br.com.redcode.easyrestful.library
+package br.com.redcode.easyrestful.library.domain
 
 import androidx.databinding.ViewDataBinding
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel

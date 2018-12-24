@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">easy-retrofit</string>
+    <string name="error_conectivity">Sem conexão com a internet ou conectividade com o servidor</string>
+    <string name="error_http_server">Erro %d do servidor</string>
+</resources>

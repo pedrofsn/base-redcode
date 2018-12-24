@@ -8,9 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/base-redcode" />
-            <option value="$PROJECT_DIR$/base-redcode-mvvm" />
-            <option value="$PROJECT_DIR$/base-redcode-mvvm-restful" />
+            <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/mvvm" />
+            <option value="$PROJECT_DIR$/mvvm-restful" />
             <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>

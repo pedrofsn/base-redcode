@@ -50,5 +50,5 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     api 'com.github.pedrofsn:EasyRecyclerview:1.0.0'
 
-    api project(':base-redcode')
+    api project(':base')
 }

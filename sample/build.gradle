@@ -24,6 +24,6 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation project(':base-redcode-mvvm-restful')
+    implementation project(':mvvm-restful')
     api 'com.github.vic797:prowebview:2.2.1'
 }

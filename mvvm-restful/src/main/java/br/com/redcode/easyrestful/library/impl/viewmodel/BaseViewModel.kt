@@ -10,6 +10,14 @@ abstract class BaseViewModel : BaseViewModelRestful(), CoroutineScope {
 
     val job = Job()
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main
+        get() = io()
+
+    fun io() = job + Dispatchers.IO
+    fun main() = job + Dispatchers.Main
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+    }
 
 }

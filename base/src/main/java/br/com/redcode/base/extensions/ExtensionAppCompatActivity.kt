@@ -127,10 +127,14 @@ fun AppCompatActivity.isEnabled(vararg permissions: String): Boolean {
     return true
 }
 
-fun AppCompatActivity.lazyId() = receiveInt("id")
+fun AppCompatActivity.lazyId() = receiveLong("id")
 
 fun AppCompatActivity.receiveInt(name: String): Lazy<Int> = lazy {
     intent?.getIntExtra(name, INVALID_VALUE) ?: INVALID_VALUE
+}
+
+fun AppCompatActivity.receiveLong(name: String): Lazy<Long> = lazy {
+    intent?.getLongExtra(name, INVALID_VALUE.toLong()) ?: INVALID_VALUE.toLong()
 }
 
 fun AppCompatActivity.receiveBoolean(name: String, default: Boolean = false): Lazy<Boolean> = lazy {

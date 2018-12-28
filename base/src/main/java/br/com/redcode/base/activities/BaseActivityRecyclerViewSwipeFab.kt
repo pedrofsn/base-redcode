@@ -19,8 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 /**
  * Created by pedrofsn on 02/02/18.
  */
-abstract class BaseActivityRecyclerViewSwipeFab(override val layout: Int = R.layout.activity_recyclerview_swipe_and_fab) :
-    BaseActivity() {
+abstract class BaseActivityRecyclerViewSwipeFab(override val layout: Int = R.layout.activity_recyclerview_swipe_and_fab) : BaseActivity() {
 
     private val swipeRefreshLayout by lazy { findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout) }
     private val fab by lazy { findViewById<FloatingActionButton>(R.id.fab) }

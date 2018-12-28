@@ -8,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProviders
+import br.com.redcode.base.activities.BaseActivity
 import br.com.redcode.base.fragments.BaseFragment
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
+import br.com.redcode.base.mvvm.domain.activity.BaseActivityMVVM
 import br.com.redcode.base.mvvm.extensions.observer
 import br.com.redcode.base.mvvm.models.Event
 import br.com.redcode.base.mvvm.models.EventMessage
@@ -54,6 +56,8 @@ abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
                     showMessage(obj)
                 }
             }
+            "showProgressbar" -> showProgress()
+            "hideProgressbar" -> hideProgress()
             else -> throw RuntimeException("Event not handled in 'handleEvent' method: $event")
         }
     }

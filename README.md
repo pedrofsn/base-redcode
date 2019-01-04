@@ -7,4 +7,4 @@ implementation 'com.github.pedrofsn.base-redcode:mvvm-restful:LATEST-VERSION'
 ```
 
 # Sample
-You can see an implementation in this [repo](https://github.com/pedrofsn/Events).
+You can see a better implementation in this [repo](https://github.com/pedrofsn/Events).

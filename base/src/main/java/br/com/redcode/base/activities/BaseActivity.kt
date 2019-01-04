@@ -242,12 +242,12 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
         beforeStartActivity.invoke()
     }
 
-    fun goToWithNoHistory(activity: Class<*>, pair: Pair<String, Int>? = null) {
+    fun goToWithNoHistory(activity: Class<*>, vararg params: Pair<String, Any?>) {
         val intent = Intent(this, activity)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        pair?.let { intent.putExtra(pair.first, pair.second) }
+        intent.putExtras(intent, *params)
         startActivity(intent)
     }
 

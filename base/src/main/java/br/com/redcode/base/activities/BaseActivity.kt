@@ -247,7 +247,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.putExtras(intent, *params)
+        putExtras(intent, *params)
         startActivity(intent)
     }
 

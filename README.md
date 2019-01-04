@@ -6,5 +6,5 @@ implementation 'com.github.pedrofsn.base-redcode:mvvm:LATEST-VERSION'
 implementation 'com.github.pedrofsn.base-redcode:mvvm-restful:LATEST-VERSION'
 ```
 
-# in development
-I'll give you more details as soon as possible
+# Sample
+You can see an implementation in this [repo](https://github.com/pedrofsn/Events).

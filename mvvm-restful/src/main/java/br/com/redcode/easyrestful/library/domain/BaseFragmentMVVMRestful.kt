@@ -13,12 +13,12 @@ abstract class BaseFragmentMVVMRestful<B : ViewDataBinding, VM : AbstractBaseVie
             "onNetworkError" -> (this as BaseActivityMVVMRestful<B, VM>).onNetworkError()
             "onNetworkUnknownError" -> {
                 if (obj != null && obj is String) {
-                    (this as BaseActivityMVVMRestful<B, VM>).onNetworkUnknownError(obj)
+                    (activity as? BaseActivityMVVMRestful<B, VM>)?.onNetworkUnknownError(obj)
                 }
             }
             "onNetworkHttpError" -> {
                 if (obj != null && obj is ErrorHandled) {
-                    (this as BaseActivityMVVMRestful<B, VM>).onNetworkHttpError(obj)
+                    (activity as? BaseActivityMVVMRestful<B, VM>)?.onNetworkHttpError(obj)
                 }
             }
             else -> super.handleEvent(event, obj)

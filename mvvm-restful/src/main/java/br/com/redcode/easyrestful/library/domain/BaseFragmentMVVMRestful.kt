@@ -4,21 +4,22 @@ import androidx.databinding.ViewDataBinding
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.base.mvvm.domain.fragment.BaseFragmentMVVM
 import br.com.redcode.easyreftrofit.library.model.ErrorHandled
+import br.com.redcode.easyrestful.library.domain.BaseActivityRestful
 
 abstract class BaseFragmentMVVMRestful<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseFragmentMVVM<B, VM>() {
 
     override fun handleEvent(event: String, obj: Any?) {
         when (event) {
-            "onNetworkTimeout" -> (this as BaseActivityMVVMRestful<B, VM>).onNetworkTimeout()
-            "onNetworkError" -> (this as BaseActivityMVVMRestful<B, VM>).onNetworkError()
+            "onNetworkTimeout" -> (activity as? BaseActivityRestful)?.onNetworkTimeout()
+            "onNetworkError" -> (activity as? BaseActivityRestful)?.onNetworkError()
             "onNetworkUnknownError" -> {
                 if (obj != null && obj is String) {
-                    (activity as? BaseActivityMVVMRestful<B, VM>)?.onNetworkUnknownError(obj)
+                    (activity as? BaseActivityRestful)?.onNetworkUnknownError(obj)
                 }
             }
             "onNetworkHttpError" -> {
                 if (obj != null && obj is ErrorHandled) {
-                    (activity as? BaseActivityMVVMRestful<B, VM>)?.onNetworkHttpError(obj)
+                    (activity as? BaseActivityRestful)?.onNetworkHttpError(obj)
                 }
             }
             else -> super.handleEvent(event, obj)

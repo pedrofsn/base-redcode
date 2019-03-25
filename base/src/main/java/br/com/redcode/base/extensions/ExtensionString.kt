@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import br.com.redcode.base.BuildConfig
 import br.com.redcode.base.R
 import br.com.redcode.base.utils.Constants
 import br.com.redcode.base.utils.Constants.SDF_BRAZILIAN_DATE
@@ -94,7 +93,7 @@ fun String.sha256(): String {
 
 fun String.toUpperCaseAndApplySHA256() = sha256().toUpperCase()
 
-fun String?.toLogcat() = this?.let { if (it.isNotBlank() && BuildConfig.DEBUG) Timber.e(it) }
+fun String?.toLogcat() = this?.let { if (it.isNotBlank()) Timber.e(it) }
 
 fun String.openLinkInBrowser(context: Context) {
     if (isNotBlank()) {

@@ -17,9 +17,11 @@ abstract class BaseActivityWebViewRestful : BaseActivityWebView(), CallbackNetwo
     override val layout: Int = R.layout.activity_webview
     override val webView by lazy { findViewById<ProWebView>(R.id.proWebView) }
 
+    // IF HAS SSL, PROBABLY NEED TO BE FALSE
+    var shouldOverrideUrlLoading = true
+
     override fun handleWebView() {
-        webView.setActivity(this)
-        webView.setProClient(object : ProWebView.ProClient() {
+        val proClient = object : ProWebView.ProClient() {
             override fun onProgressChanged(webView: ProWebView?, progress: Int) {
                 super.onProgressChanged(webView, progress)
 
@@ -34,7 +36,14 @@ abstract class BaseActivityWebViewRestful : BaseActivityWebView(), CallbackNetwo
                 super.onInformationReceived(webView, url, title, favicon)
                 url?.let { customUrl -> processingURL(customUrl) }
             }
-        })
+
+            override fun shouldOverrideUrlLoading(webView: ProWebView?, url: String?): Boolean {
+                return if (shouldOverrideUrlLoading) super.shouldOverrideUrlLoading(webView, url) else false
+            }
+        }
+
+        webView.setActivity(this)
+        webView.setProClient(proClient)
     }
 
     override fun onNetworkHttpError(errorHandled: ErrorHandled) {
@@ -50,9 +59,9 @@ abstract class BaseActivityWebViewRestful : BaseActivityWebView(), CallbackNetwo
                 callback.invoke()
             } else {
                 Alerts.showDialogOk(
-                        context = this@BaseActivityWebViewRestful,
-                        mensagem = message,
-                        onOk = callback
+                    context = this@BaseActivityWebViewRestful,
+                    mensagem = message,
+                    onOk = callback
                 )
             }
         }
@@ -66,9 +75,9 @@ abstract class BaseActivityWebViewRestful : BaseActivityWebView(), CallbackNetwo
     override fun onNetworkError() {
         hideProgress()
         Alerts.showDialogOk(
-                this,
-                getString(R.string.erro),
-                getString(R.string.error_conectivity)
+            this,
+            getString(R.string.erro),
+            getString(R.string.error_conectivity)
         )
     }
 

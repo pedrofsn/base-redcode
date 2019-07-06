@@ -5,7 +5,7 @@ import br.com.redcode.easyrestful.library.impl.viewmodel.BaseViewModelWithLiveDa
 class ContactViewModel : BaseViewModelWithLiveData<LabelContact>() {
 
     override fun load() {
-
+        liveData.postValue(LabelContact(email = "pedrokra@gmail.com"))
     }
 
 }

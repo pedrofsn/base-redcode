@@ -4,18 +4,20 @@
     <data>
 
         <variable
-                name="viewModel"
-                type="br.com.redcode.base.sample.contact.ContactViewModel"/>
+            name="viewModel"
+            type="br.com.redcode.base.sample.contact.ContactViewModel" />
     </data>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/respiro_visual">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.liveData.email}" />
 
     </LinearLayout>
 

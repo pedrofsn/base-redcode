@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.sonarqube'
 
 apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.pedrofsn'
@@ -52,4 +53,16 @@ dependencies {
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
 
     api project(':mvvm')
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "base-code-mvvm-restful"
+        property "sonar.projectKey", "aaa"
+        property "sonar.host.url", "aaa"
+        property "sonar.language", "kotlin"
+        property "sonar.sources", "src/main/"
+        property "sonar.login", "aaa"
+        property "sonar.password", "aaa"
+    }
 }

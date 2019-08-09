@@ -19,6 +19,8 @@ abstract class ActivityMVVM<B : ViewDataBinding, VM : BaseViewModel> : BaseActiv
         }
     }
 
-    open fun recreateToken() {}
+    open fun recreateToken() {
+        // DO YOUR LOGIC
+    }
 
 }

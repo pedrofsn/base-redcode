@@ -38,7 +38,10 @@ abstract class BaseActivityWebViewRestful : BaseActivityWebView(), CallbackNetwo
             }
 
             override fun shouldOverrideUrlLoading(webView: ProWebView?, url: String?): Boolean {
-                return if (shouldOverrideUrlLoading) super.shouldOverrideUrlLoading(webView, url) else false
+                return when {
+                    shouldOverrideUrlLoading -> super.shouldOverrideUrlLoading(webView, url)
+                    else -> false
+                }
             }
         }
 

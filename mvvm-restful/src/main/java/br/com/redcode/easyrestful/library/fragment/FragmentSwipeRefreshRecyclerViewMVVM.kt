@@ -74,7 +74,9 @@ abstract class FragmentSwipeRefreshRecyclerViewMVVM<B : ViewDataBinding, VM : Ba
         }
     }
 
-    open fun onRefreshed() {}
+    open fun onRefreshed() {
+        // DO YOUR LOGIC
+    }
 
     override fun showProgress() {
         if (hasSwipeRefreshLayout) {

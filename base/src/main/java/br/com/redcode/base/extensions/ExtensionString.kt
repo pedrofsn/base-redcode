@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.webkit.URLUtil
 import br.com.redcode.base.R
 import br.com.redcode.base.utils.Constants
 import br.com.redcode.base.utils.Constants.SDF_BRAZILIAN_DATE
 import timber.log.Timber
+import java.io.File
 import java.security.MessageDigest
 import java.util.*
 
@@ -110,5 +112,32 @@ fun String.openLinkInBrowser(context: Context) {
         if (intent.resolveActivity(context.packageManager) != null) {
             context.startActivity(intent)
         }
+    }
+}
+
+fun String.isURL(): Boolean {
+    return URLUtil.isHttpUrl(this) || URLUtil.isHttpsUrl(this)
+}
+
+fun File.formatSize() = length().formatSize()
+
+fun Long.formatSize(): String {
+    // Get length of file in bytes
+    val fileSizeInBytes = this
+
+    val fileSizeInKB = fileSizeInBytes / 1024
+
+    return fileSizeInKB.formatSizeFromKb()
+}
+
+fun Long.formatSizeFromKb(): String {
+    val fileSizeInKB = this
+
+    // Convert the KB to MegaBytes (1 MB = 1024 KBytes)
+    val fileSizeInMB = fileSizeInKB / 1024
+
+    return when {
+        fileSizeInMB > 0 -> "$fileSizeInMB MB"
+        else -> "$fileSizeInKB KB"
     }
 }

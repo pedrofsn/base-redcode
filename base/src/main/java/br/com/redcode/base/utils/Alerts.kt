@@ -70,38 +70,38 @@ object Alerts {
                 .create()
     }
 
-    fun showDialogYesOrNot(context: Context, conteudo: String, callback: () -> Unit) {
+    fun showDialogYesOrNot(context: Context, message: String, callback: () -> Unit) {
         if (context is AppCompatActivity && context.isFinishing.not()) {
-            val callbackNao = DialogInterface.OnClickListener { dialog, _ -> dialog.dismiss() }
-            val callbackSim = DialogInterface.OnClickListener { dialog, interfac ->
+            val callbackNo = DialogInterface.OnClickListener { dialog, _ -> dialog.dismiss() }
+            val callbackYes = DialogInterface.OnClickListener { dialog, interfac ->
                 run {
                     dialog.dismiss()
                     callback.invoke()
                 }
             }
 
-            val titulo = context.getString(R.string.atencao)
-            "DIALOG: $titulo - $conteudo".toLogcat()
+            val title = context.getString(R.string.atencao)
+            "DIALOG: $title - $message".toLogcat()
 
-            val dialog = showDialogYesOrNot(context, titulo, conteudo, callbackSim, callbackNao)
+            val dialog = showDialogYesOrNot(context, title, message, callbackYes, callbackNo)
             dialog.setCanceledOnTouchOutside(false)
             dialog.show()
         }
     }
 
     fun showDialogYesOrNot(
-            context: Context,
-            titulo: String,
-            conteudo: String,
-            callbackSim: DialogInterface.OnClickListener,
-            callbackNao: DialogInterface.OnClickListener
+        context: Context,
+        title: String,
+        message: String,
+        callbackYes: DialogInterface.OnClickListener,
+        callbackNo: DialogInterface.OnClickListener
     ): AlertDialog {
         val builder = AlertDialog.Builder(context)
-                .setTitle(titulo)
-                .setMessage(conteudo)
+                .setTitle(title)
+                .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(context.getString(R.string.yes), callbackSim)
-                .setNegativeButton(context.getString(R.string.no), callbackNao)
+                .setPositiveButton(context.getString(R.string.yes), callbackYes)
+                .setNegativeButton(context.getString(R.string.no), callbackNo)
 
         return builder.create()
     }

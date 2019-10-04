@@ -104,7 +104,7 @@ abstract class BaseActivityWebViewRestful : BaseActivityWebView(), CallbackNetwo
         webView.onRequestPermissionResult(requestCode, permissions, grantResults)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         webView.onSavedInstanceState(outState)
     }

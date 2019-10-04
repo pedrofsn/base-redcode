@@ -22,7 +22,7 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
-        dialog.setCanceledOnTouchOutside(canceledOnTouchOutside)
+        dialog?.setCanceledOnTouchOutside(canceledOnTouchOutside)
         configureDialogSize()
         initView(view)
         afterOnCreate()
@@ -30,7 +30,7 @@ abstract class BaseDialogFragment : DialogFragment() {
     }
 
     private fun configureDialogSize() {
-        val window = dialog.window
+        val window = dialog?.window
 
         if (window != null) {
             window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

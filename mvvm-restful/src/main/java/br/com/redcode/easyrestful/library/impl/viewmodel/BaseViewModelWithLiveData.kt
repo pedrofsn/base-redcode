@@ -10,4 +10,8 @@ abstract class BaseViewModelWithLiveData<Model> : BaseViewModel() {
 
     abstract fun load()
 
+    fun load(id: Long) {
+        this.id = id
+        load()
+    }
 }

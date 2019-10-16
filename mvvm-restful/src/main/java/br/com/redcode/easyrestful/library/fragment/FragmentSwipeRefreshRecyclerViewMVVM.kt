@@ -101,11 +101,11 @@ abstract class FragmentSwipeRefreshRecyclerViewMVVM<B : ViewDataBinding, VM : Ba
 
     open fun getOptionsMenu() = R.menu.menu_search
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if (hasSearch) {
-            inflater?.inflate(getOptionsMenu(), menu)
+            inflater.inflate(getOptionsMenu(), menu)
 
-            searchItem = menu?.findItem(R.id.menuItemSearch)
+            searchItem = menu.findItem(R.id.menuItemSearch)
 
             val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as? SearchManager
 

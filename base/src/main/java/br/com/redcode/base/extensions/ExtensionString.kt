@@ -72,7 +72,7 @@ fun String.toPHPMoneyValueInDouble(): Double {
 fun String.copyToClipboard(context: Context) {
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText("label", this)
-    clipboard.primaryClip = clip
+    clipboard.setPrimaryClip(clip)
 }
 
 fun String.sha256(): String {

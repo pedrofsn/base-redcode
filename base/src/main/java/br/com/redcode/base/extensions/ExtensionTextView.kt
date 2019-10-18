@@ -1,5 +1,6 @@
 package br.com.redcode.base.extensions
 
+import android.R
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Paint
@@ -26,27 +27,20 @@ fun TextView.setTextOrHide(string: String?, additionViewToHide: View? = null) {
     }
 }
 
-fun TextView.handleDate(callback: ((String) -> Unit)? = null) {
+fun TextView.handleDate(callback: ((String) -> Unit)? = null, isMinimalAge: Boolean? = false) {
     var calendar = text.toString().toCalendarWithZeroTime()
 
-    if (calendar == null) {
-        calendar = Calendar.getInstance().minimalAge()
+    calendar?.let {
+        calendar =
+            when (isMinimalAge) {
+                true -> Calendar.getInstance().minimalAge()
+                else -> Calendar.getInstance()
+            }
     }
 
-    val callbackBirthday = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-        calendar.set(Calendar.YEAR, year)
-        calendar.set(Calendar.MONTH, month)
-        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+    val callbackBirthday = configDatePickerListener(calendar?: Calendar.getInstance(), callback)
 
-        val result = calendar.to__dd_MM_yyyy()
-
-        text = result
-        callback?.let { result }
-
-        setTextColor(ContextCompat.getColor(context, android.R.color.black))
-    }
-
-    setOnClickListener { Alerts.showDatePicker(context, calendar, callbackBirthday) }
+    setOnClickListener { Alerts.showDatePicker(context, calendar?: Calendar.getInstance(), callbackBirthday) }
 }
 
 fun TextView.handleTime(): () -> Unit {
@@ -82,4 +76,23 @@ fun TextView.updateBadge(count: Int) {
 
 fun TextView.underline() {
     paintFlags = paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+}
+
+private fun TextView.configDatePickerListener(
+    calendar: Calendar,
+    callback: ((String) -> Unit)?
+): DatePickerDialog.OnDateSetListener {
+    val callbackBirthday = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+        val result = calendar.to__dd_MM_yyyy()
+
+        text = result
+        callback?.let { result }
+
+        setTextColor(ContextCompat.getColor(context, R.color.black))
+    }
+    return callbackBirthday
 }

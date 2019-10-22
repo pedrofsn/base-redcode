@@ -1,6 +1,5 @@
 package br.com.redcode.base.extensions
 
-import android.R
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Paint
@@ -92,7 +91,7 @@ private fun TextView.configDatePickerListener(
         text = result
         callback?.let { result }
 
-        setTextColor(ContextCompat.getColor(context, R.color.black))
+        setTextColor(ContextCompat.getColor(context, android.R.color.black))
     }
     return callbackBirthday
 }

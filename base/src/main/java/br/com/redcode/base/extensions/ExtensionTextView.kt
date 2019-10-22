@@ -97,8 +97,6 @@ private fun TextView.configDatePickerListener(
 
         text = result
         callback?.let { result }
-
-        setTextColor(ContextCompat.getColor(context, android.R.color.black))
     }
     return callbackBirthday
 }

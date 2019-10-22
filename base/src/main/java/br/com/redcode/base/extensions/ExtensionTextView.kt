@@ -39,7 +39,14 @@ fun TextView.handleDate(callback: ((String) -> Unit)? = null, isMinimalAge: Bool
 
     val callbackBirthday = configDatePickerListener(calendar?: Calendar.getInstance(), callback)
 
-    setOnClickListener { Alerts.showDatePicker(context, calendar?: Calendar.getInstance(), callbackBirthday) }
+        val result = calendar.to__dd_MM_yyyy()
+
+        text = result
+        callback?.let { result }
+
+    }
+
+    setOnClickListener { Alerts.showDatePicker(context, calendar, callbackBirthday) }
 }
 
 fun TextView.handleTime(): () -> Unit {
@@ -95,3 +102,4 @@ private fun TextView.configDatePickerListener(
     }
     return callbackBirthday
 }
+

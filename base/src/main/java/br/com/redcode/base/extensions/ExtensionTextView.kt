@@ -43,7 +43,8 @@ fun TextView.handleDate(callback: ((String) -> Unit)? = null) {
         text = result
         callback?.let { result }
 
-        setTextColor(ContextCompat.getColor(context, android.R.color.black))
+        //setTextColor(ContextCompat.getColor(context, android.R.color.black))
+    //line 46 can be commented or deleted; not necessary.    
     }
 
     setOnClickListener { Alerts.showDatePicker(context, calendar, callbackBirthday) }

@@ -9,6 +9,7 @@ import br.com.redcode.base.mvvm.models.EventMessage
 
 abstract class AbstractBaseViewModel : ViewModel(), LifecycleObserver {
 
+    val processing = MutableLiveData<Event<EventMessage>>()
     val events = MutableLiveData<Event<EventMessage>>()
 
     fun sendEventToUI(event: String) = events.postValue(Event(EventMessage(event)))

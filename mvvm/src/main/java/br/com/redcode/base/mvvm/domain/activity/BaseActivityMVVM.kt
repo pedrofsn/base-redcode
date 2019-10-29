@@ -20,6 +20,10 @@ abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
     abstract val classViewModel: Class<VM>
     abstract val idBRViewModel: Int
 
+    private val observerProcessing = observer<Boolean> {
+        processing = it
+    }
+
     private val observerEvents = observer<Event<EventMessage>> {
         it.getContentIfNotHandled()?.let { obj ->
             handleEvent(obj)

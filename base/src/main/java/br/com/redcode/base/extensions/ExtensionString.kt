@@ -141,3 +141,10 @@ fun Long.formatSizeFromKb(): String {
         else -> "$fileSizeInKB KB"
     }
 }
+
+infix fun String.prefer(secondary: String?): String {
+    return when {
+        secondary?.isNotBlank() == true -> secondary
+        else -> this
+    }
+}

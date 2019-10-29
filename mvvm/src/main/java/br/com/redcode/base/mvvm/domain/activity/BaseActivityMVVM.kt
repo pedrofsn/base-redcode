@@ -20,8 +20,11 @@ abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
     abstract val classViewModel: Class<VM>
     abstract val idBRViewModel: Int
 
-    private val observerEvents =
-            observer<Event<EventMessage>> { it -> it.getContentIfNotHandled()?.let { obj -> handleEvent(obj) } }
+    private val observerEvents = observer<Event<EventMessage>> {
+        it.getContentIfNotHandled()?.let { obj ->
+            handleEvent(obj)
+        }
+    }
 
     private val progressDialog by lazy { ProgressDialog(this) }
 
@@ -40,22 +43,32 @@ abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
 
     }
 
-    private fun handleEvent(eventMessage: EventMessage) = handleEvent(eventMessage.event, eventMessage.obj)
+    private fun handleEvent(eventMessage: EventMessage) {
+        runOnUiThread {
+            handleEvent(eventMessage.event, eventMessage.obj)
+        }
+    }
 
-    fun handleEvent(event: String) = handleEvent(event, null)
+    fun handleEvent(event: String) {
+        runOnUiThread {
+            handleEvent(event, null)
+        }
+    }
 
     open fun handleEvent(event: String, obj: Any? = null) {
-        val string = if (obj != null && obj is String) obj else null
+        runOnUiThread {
+            val string = if (obj != null && obj is String) obj else null
 
-        when (event) {
-            "showSimpleAlert" -> string?.let { showSimpleAlert(it) }
-            "showSimpleAlertAndClose" -> string?.let { showSimpleAlert(it) { finish() } }
-            "showMessage" -> string?.let { showMessage(it) }
-            "showProgressDialog" -> showProgressDialog()
-            "hideProgressDialog" -> hideProgressDialog()
-            "showProgressbar" -> showProgress()
-            "hideProgressbar" -> hideProgress()
-            else -> throw RuntimeException("Event '$event' not handled in 'handleEvent' method")
+            when (event) {
+                "showSimpleAlert" -> string?.let { showSimpleAlert(it) }
+                "showSimpleAlertAndClose" -> string?.let { showSimpleAlert(it) { finish() } }
+                "showMessage" -> string?.let { showMessage(it) }
+                "showProgressDialog" -> showProgressDialog()
+                "hideProgressDialog" -> hideProgressDialog()
+                "showProgressbar" -> showProgress()
+                "hideProgressbar" -> hideProgress()
+                else -> throw RuntimeException("Event '$event' not handled in 'handleEvent' method")
+            }
         }
     }
 

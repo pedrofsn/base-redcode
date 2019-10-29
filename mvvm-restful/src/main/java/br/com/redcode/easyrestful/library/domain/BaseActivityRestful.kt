@@ -21,13 +21,12 @@ abstract class BaseActivityRestful : BaseActivity(), CallbackNetworkRequest {
                     }
                 }
 
-                if (message.isBlank()) {
-                    callback.invoke()
-                } else {
-                    Alerts.showDialogOk(
-                        context = this@BaseActivityRestful,
-                        mensagem = message,
-                        onOk = callback
+                when {
+                    message.isBlank() -> callback.invoke()
+                    else -> Alerts.showDialogOk(
+                            context = this@BaseActivityRestful,
+                            mensagem = message,
+                            onOk = callback
                     )
                 }
             }

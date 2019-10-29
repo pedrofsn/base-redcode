@@ -8,10 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProviders
-import br.com.redcode.base.activities.BaseActivity
 import br.com.redcode.base.fragments.BaseFragment
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
-import br.com.redcode.base.mvvm.domain.activity.BaseActivityMVVM
 import br.com.redcode.base.mvvm.extensions.observer
 import br.com.redcode.base.mvvm.models.Event
 import br.com.redcode.base.mvvm.models.EventMessage
@@ -24,9 +22,15 @@ abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
     abstract val idBRViewModel: Int
 
     private val observerEvents =
-            observer<Event<EventMessage>> { it -> it.getContentIfNotHandled()?.let { obj -> handleEvent(obj) } }
+        observer<Event<EventMessage>> { it ->
+            it.getContentIfNotHandled()?.let { obj -> handleEvent(obj) }
+        }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, layout, container, false)
         viewModel = ViewModelProviders.of(activity!!).get(classViewModel)
         binding.setVariable(idBRViewModel, viewModel)
@@ -40,11 +44,13 @@ abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
         }
     }
 
-    private fun handleEvent(eventMessage: EventMessage) = handleEvent(eventMessage.event, eventMessage.obj)
+    private fun handleEvent(eventMessage: EventMessage) = activity?.runOnUiThread {
+        handleEvent(eventMessage.event, eventMessage.obj)
+    }
 
-    fun handleEvent(event: String) = handleEvent(event, null)
+    fun handleEvent(event: String) = activity?.runOnUiThread { handleEvent(event, null) }
 
-    open fun handleEvent(event: String, obj: Any? = null) {
+    open fun handleEvent(event: String, obj: Any? = null) = activity?.runOnUiThread {
         when (event) {
             "showSimpleAlert" -> {
                 if (obj != null && obj is String) {

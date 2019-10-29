@@ -5,7 +5,6 @@ import android.app.TimePickerDialog
 import android.graphics.Paint
 import android.view.View
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import br.com.redcode.base.utils.Alerts
 import java.util.*
 
@@ -27,26 +26,26 @@ fun TextView.setTextOrHide(string: String?, additionViewToHide: View? = null) {
 }
 
 fun TextView.handleDate(callback: ((String) -> Unit)? = null, isMinimalAge: Boolean? = false) {
-    var calendar = text.toString().toCalendarWithZeroTime()
+    val today = Calendar.getInstance().zeroTime()
 
-    calendar?.let {
-        calendar =
-            when (isMinimalAge) {
-                true -> Calendar.getInstance().minimalAge()
-                else -> Calendar.getInstance()
-            }
+    val calendar = try {
+        when (isMinimalAge) {
+            true -> Calendar.getInstance().minimalAge()
+            else -> text.toString().toCalendarWithZeroTime() ?: today
+        }
+    } catch (e: Exception) {
+        today
     }
 
-    val callbackBirthday = configDatePickerListener(calendar?: Calendar.getInstance(), callback)
+    val callbackBirthday = configDatePickerListener(calendar, callback)
+    val result = calendar.to__dd_MM_yyyy()
 
-        val result = calendar.to__dd_MM_yyyy()
+    text = result
+    callback?.let { result }
 
-        text = result
-        callback?.let { result }
-
+    setOnClickListener {
+        Alerts.showDatePicker(context, calendar, callbackBirthday)
     }
-
-    setOnClickListener { Alerts.showDatePicker(context, calendar, callbackBirthday) }
 }
 
 fun TextView.handleTime(): () -> Unit {

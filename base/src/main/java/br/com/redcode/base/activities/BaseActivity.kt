@@ -134,9 +134,9 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
     }
 
     private fun getSnackBar(
-            view: View = findViewById(android.R.id.content),
-            message: String,
-            duration: Int = Snackbar.LENGTH_SHORT
+        view: View = findViewById(android.R.id.content),
+        message: String,
+        duration: Int = Snackbar.LENGTH_SHORT
     ): Snackbar {
         "Snackbar: $message".toLogcat()
         return Snackbar.make(view, message, duration)
@@ -151,12 +151,16 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
     }
 
     override fun hideProgress() = runOnUiThread {
-        if (processing || linearLayoutProgressBar?.isVisible() == true || getContentView()?.isVisible() == false) {
+        if (canHideProgress()) {
             linearLayoutProgressBar?.gone()
             processing = false
             getContentView()?.visible()
         }
     }
+
+    fun canHideProgress() = processing
+            || linearLayoutProgressBar?.isVisible() == true
+            || getContentView()?.isVisible() == false
 
     open fun getContentView(): View? {
         return null
@@ -177,8 +181,8 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
     }
 
     inline fun <reified Activity : AppCompatActivity> goTo(
-            params: Pair<String, Any?>? = null,
-            requestCode: Int? = null
+        params: Pair<String, Any?>? = null,
+        requestCode: Int? = null
     ) {
         when {
             requestCode != null && params != null -> {
@@ -187,8 +191,8 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
                 startActivityForResult(
-                        intent,
-                        requestCode
+                    intent,
+                    requestCode
                 )
             }
             requestCode != null && params == null -> {
@@ -197,8 +201,8 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
                 startActivityForResult(
-                        intent,
-                        requestCode
+                    intent,
+                    requestCode
                 )
             }
             requestCode == null && params != null -> {
@@ -230,8 +234,8 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
     }
 
     inline fun <reified Activity : AppCompatActivity> goToWithNoHistory(
-            vararg params: Pair<String, Any?>,
-            beforeStartActivity: (() -> Unit)
+        vararg params: Pair<String, Any?>,
+        beforeStartActivity: (() -> Unit)
     ) {
         val intent = Intent(this, Activity::class.java)
         putExtras(intent, *params)
@@ -292,8 +296,8 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
                         is ArrayList<*> -> {
                             (second as? ArrayList<CharSequence>)?.let {
                                 intent.putCharSequenceArrayListExtra(
-                                        first,
-                                        it
+                                    first,
+                                    it
                                 )
                             }
                             (second as? ArrayList<Int>)?.let { intent.putIntegerArrayListExtra(first, it) }
@@ -340,7 +344,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
     }
 
     override fun showMessage(message: String, duration: Int) =
-            getSnackBar(message = message, duration = duration).show()
+        getSnackBar(message = message, duration = duration).show()
 
     override fun finish() {
         super.finish()

@@ -96,4 +96,17 @@ abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
         setResult(RESULT_OK, intent)
         finish()
     }
+
+    override fun showProgress() {
+        super.showProgress()
+        viewModel.processing.postValue(true)
+    }
+
+    override fun hideProgress() {
+        if (canHideProgress()) {
+            viewModel.processing.postValue(false)
+        }
+
+        super.hideProgress()
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.redcode.base.extensions
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +10,6 @@ import android.provider.Settings
 /*
     CREATED BY @PEDROFSN
 */
-
 
 fun Context.openSettings() {
     val intent = Intent()
@@ -24,6 +24,18 @@ fun Context.openSettings() {
         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         intent.data = Uri.parse("package:" + getPackageName())
+    }
+    startActivity(intent)
+}
+
+fun Context.openAppInPlayStore(appPackageName: String = packageName) {
+    val intent = try {
+        Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
+    } catch (excpetion: ActivityNotFoundException) {
+        Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+        )
     }
     startActivity(intent)
 }

@@ -1,6 +1,5 @@
 package br.com.redcode.base.extensions
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -51,7 +50,8 @@ fun AppCompatActivity.setColorToolbar(hex: String): Int {
     return color
 }
 
-fun AppCompatActivity.setCustomTitleToolbar(@StringRes string: Int) = setCustomTitleToolbar(getString(string))
+fun AppCompatActivity.setCustomTitleToolbar(@StringRes string: Int) =
+    setCustomTitleToolbar(getString(string))
 
 fun AppCompatActivity.setCustomTitleToolbar(string: String?) {
     if (string?.isBlank() == false) {
@@ -65,22 +65,14 @@ fun AppCompatActivity.setSubtituloToolbar(string: String?) {
     }
 }
 
-fun AppCompatActivity.openAppInPlayStore() {
-    val intent = try {
-        Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
-    } catch (excpetion: ActivityNotFoundException) {
-        Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName"))
-    }
-    startActivity(intent)
-}
-
 fun AppCompatActivity.openNotificationSettings() {
     try {
         val intent = Intent()
 
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
-                Toast.makeText(this, getString(R.string.message_open_settings), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.message_open_settings), Toast.LENGTH_LONG)
+                    .show()
                 startActivityForResult(Intent(android.provider.Settings.ACTION_SETTINGS), 0)
                 return
             }
@@ -111,12 +103,16 @@ fun AppCompatActivity.openNotificationSettings() {
 }
 
 fun AppCompatActivity.isEnabled(permission: String) =
-        ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 
 fun AppCompatActivity.isEnabled(vararg permissions: String): Boolean {
     if (permissions.isNotEmpty()) {
         permissions.forEach { permission ->
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 return false
             }
         }

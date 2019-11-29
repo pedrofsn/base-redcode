@@ -59,9 +59,18 @@ abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
 
     open fun handleEvent(event: String, obj: Any? = null) {
         runOnUiThread {
-            val string = if (obj != null && obj is String) obj else null
+            val string = when {
+                obj != null && obj is String -> obj
+                obj != null && obj is Int -> try {
+                    getString(obj)
+                } catch (e: Exception) {
+                    null
+                }
+                else -> null
+            }
 
             when (event) {
+                "toast" -> string?.let { toast(it) }
                 "showSimpleAlert" -> string?.let { showSimpleAlert(it) }
                 "showSimpleAlertAndClose" -> string?.let { showSimpleAlert(it) { finish() } }
                 "showMessage" -> string?.let { showMessage(it) }

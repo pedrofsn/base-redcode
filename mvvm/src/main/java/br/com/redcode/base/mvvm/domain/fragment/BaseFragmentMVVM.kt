@@ -55,11 +55,22 @@ abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
             "showSimpleAlert" -> {
                 if (obj != null && obj is String) {
                     showSimpleAlert(obj)
+                } else if (obj != null && obj is Int) {
+                    showSimpleAlert(getString(obj))
                 }
             }
             "showMessage" -> {
                 if (obj != null && obj is String) {
                     showMessage(obj)
+                } else if (obj != null && obj is Int) {
+                    showMessage(getString(obj))
+                }
+            }
+            "toast" -> {
+                if (obj != null && obj is String) {
+                    toast(obj)
+                } else if (obj != null && obj is Int) {
+                    toast(getString(obj))
                 }
             }
             "showProgressbar" -> showProgress()

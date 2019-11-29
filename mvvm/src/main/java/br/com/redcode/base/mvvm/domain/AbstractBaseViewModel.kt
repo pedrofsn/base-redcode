@@ -1,5 +1,6 @@
 package br.com.redcode.base.mvvm.domain
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,11 @@ abstract class AbstractBaseViewModel : ViewModel(), LifecycleObserver {
     fun sendEventToUI(event: String) = events.postValue(Event(EventMessage(event)))
     fun sendEventToUI(event: String, obj: Any? = null) = events.postValue(Event(EventMessage(event, obj)))
 
+    fun toast(message: String) = sendEventToUI("toast", message)
+    fun toast(@StringRes message: Int) = sendEventToUI("toast", message)
+    fun showMessage(message: String) = sendEventToUI("showMessage", message)
+    fun showMessage(@StringRes message: Int) = sendEventToUI("showMessage", message)
+    fun showSimpleAlert(@StringRes message: Int) = sendEventToUI("showSimpleAlert", message)
     fun showSimpleAlert(message: String) = sendEventToUI("showSimpleAlert", message)
     fun showProgressbar(liveData: MutableLiveData<*>) = showProgressbar(liveData.isEmpty())
     fun showProgressbar(show: Boolean = true) = sendEventToUI(if (show) "showProgressbar" else "hideProgressbar")

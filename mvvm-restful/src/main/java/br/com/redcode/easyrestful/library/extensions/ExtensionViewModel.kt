@@ -1,6 +1,5 @@
 package br.com.redcode.easyrestful.library.extensions
 
-import androidx.annotation.StringRes
 import br.com.redcode.base.extensions.getSafeMessage
 import br.com.redcode.base.extensions.isWithoutErrorInformation
 import br.com.redcode.base.models.ErrorAPI
@@ -28,15 +27,20 @@ fun BaseViewModel.onSuccess(e: ErrorAPI?) {
     }
 }
 
-fun BaseViewModel.process(event: String? = null, function: (suspend () -> ErrorAPI?)?) {
-    if (function != null) {
-        showProgressbar()
-        launch(io()) {
-            val result = function.invoke()
-            if (result?.isWithoutErrorInformation() == true) {
-                val mEvent = event ?: "onSuccess"
-                val obj = result.getSafeMessage()
-                sendEventToUI(event = mEvent, obj = obj)
+fun <T> BaseViewModel.process(event: String?, request: (suspend () -> T?)?) {
+    if (request != null) {
+        launch(main()) {
+            showProgressbar()
+            val asyncResults = async(io()) { request.invoke() }
+            val result = asyncResults.await()
+            when {
+                (result as? ErrorAPI)?.isWithoutErrorInformation() == true -> {
+                    val mEvent = event ?: "onSuccess"
+                    val obj = result.getSafeMessage()
+                    sendEventToUI(event = mEvent, obj = obj)
+                }
+                result != null && event != null -> sendEventToUI(event, result)
+                else -> showProgressbar(false)
             }
         }
     }
@@ -53,18 +57,18 @@ inline fun BaseViewModel.processWithAlert(crossinline function: suspend () -> Er
 }
 
 fun <T> BaseViewModelWithLiveData<T>.process(
-        showProgressBarOnce: Boolean = false,
-        function: suspend () -> T?
+    showProgressBarOnce: Boolean = false,
+    function: suspend () -> T?
 ) = process(
-        function = function,
-        showProgressBarOnce = showProgressBarOnce,
-        onResult = null
+    function = function,
+    showProgressBarOnce = showProgressBarOnce,
+    onResult = null
 )
 
 fun <T> BaseViewModelWithLiveData<T>.process(
-        showProgressBarOnce: Boolean = false,
-        function: suspend () -> T?,
-        onResult: ((T?) -> Unit)?
+    showProgressBarOnce: Boolean = false,
+    function: suspend () -> T?,
+    onResult: ((T?) -> Unit)?
 ) {
     when {
         showProgressBarOnce -> showProgressbar(liveData)
@@ -94,12 +98,6 @@ inline fun BaseViewModel.showProgressbar(crossinline function: () -> Unit) {
 fun <T> BaseViewModelWithLiveData<T>.load(id: Long) {
     this.id = id
     load()
-}
-
-fun BaseViewModel.showSimpleAlert(@StringRes idString: Int) {
-    launch(main()) {
-        sendEventToUI("showSimpleAlert", idString)
-    }
 }
 
 fun BaseViewModel.showSimpleAlert(e: ErrorAPI?) {

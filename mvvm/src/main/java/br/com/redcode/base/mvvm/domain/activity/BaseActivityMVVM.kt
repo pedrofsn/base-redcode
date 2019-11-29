@@ -1,121 +1,81 @@
 package br.com.redcode.base.mvvm.domain.activity
 
 
-import android.app.ProgressDialog
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProviders
 import br.com.redcode.base.activities.BaseActivity
-import br.com.redcode.base.mvvm.R
+import br.com.redcode.base.fragments.getSafeString
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
-import br.com.redcode.base.mvvm.extensions.observer
-import br.com.redcode.base.mvvm.models.Event
+import br.com.redcode.base.mvvm.domain.MVVM
 import br.com.redcode.base.mvvm.models.EventMessage
 
-abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseActivity() {
+abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseActivity(),
+    MVVM<B, VM> {
 
-    protected lateinit var binding: B
-    lateinit var viewModel: VM
-    abstract val classViewModel: Class<VM>
-    abstract val idBRViewModel: Int
+    override lateinit var binding: B
+    override lateinit var viewModel: VM
+    abstract override val classViewModel: Class<VM>
+    abstract override val idBRViewModel: Int
 
-    private val observerProcessing = observer<Boolean> { processing = it }
-
-    private val observerEvents = observer<Event<EventMessage>> {
-        it.getContentIfNotHandled()?.let { obj ->
-            handleEvent(obj)
-        }
-    }
-
-    private val progressDialog by lazy { ProgressDialog(this) }
+    override val observerProcessing by lazy { initObserverProcessing() }
+    override val observerEvents by lazy { initObserverEvents() }
 
     override fun setupLayout() {
         binding = DataBindingUtil.setContentView(this, layout)
         viewModel = ViewModelProviders.of(this).get(classViewModel)
-        binding.setVariable(idBRViewModel, viewModel)
-        binding.setLifecycleOwner(this)
+        defineMVVM(this)
         setupUI()
 
-        (viewModel as AbstractBaseViewModel).events.observe(this, observerEvents)
+        observeEvents()
         lifecycle.addObserver(viewModel)
     }
 
     open fun setupUI() {
-        (viewModel as? AbstractBaseViewModel)?.processing?.observe(this, observerProcessing)
+        observeProcessing()
     }
 
-    private fun handleEvent(eventMessage: EventMessage) {
+    override fun handleEvent(eventMessage: EventMessage) {
         runOnUiThread {
             handleEvent(eventMessage.event, eventMessage.obj)
         }
     }
 
-    fun handleEvent(event: String) {
+
+    override fun handleEvent(event: String) {
         runOnUiThread {
             handleEvent(event, null)
         }
     }
 
-    open fun handleEvent(event: String, obj: Any? = null) {
+    override fun handleEvent(event: String, obj: Any?) {
         runOnUiThread {
-            val string = when {
-                obj != null && obj is String -> obj
-                obj != null && obj is Int -> try {
-                    getString(obj)
-                } catch (e: Exception) {
-                    null
-                }
-                else -> null
-            }
-
             when (event) {
-                "toast" -> string?.let { toast(it) }
-                "showSimpleAlert" -> string?.let { showSimpleAlert(it) }
-                "showSimpleAlertAndClose" -> string?.let { showSimpleAlert(it) { finish() } }
-                "showMessage" -> string?.let { showMessage(it) }
-                "showProgressDialog" -> showProgressDialog()
-                "hideProgressDialog" -> hideProgressDialog()
-                "showProgressbar" -> showProgress()
-                "hideProgressbar" -> hideProgress()
-                else -> throw RuntimeException("Event '$event' not handled in 'handleEvent' method")
+                "showSimpleAlertAndClose" -> getSafeString(obj).let { showSimpleAlert(it) { finish() } }
+                else -> super.handleEvent(event, obj)
             }
-        }
-    }
-
-    private fun showProgressDialog() {
-        if (progressDialog.isShowing.not()) {
-            progressDialog.isIndeterminate = true
-            progressDialog.setCancelable(false)
-            progressDialog.setMessage(getString(R.string.loading))
-
-            progressDialog.show()
-        }
-    }
-
-    private fun hideProgressDialog() {
-        if (progressDialog.isShowing) {
-            progressDialog.hide()
         }
     }
 
     fun backToStartFlux() {
+        backToStartFlux("backToStartFlux" to true)
+    }
+
+    fun backToStartFlux(vararg params: Pair<String, Any?>?) {
         val intent = Intent()
-        intent.putExtra("backToStartFlux", true)
+        putExtras(intent, *params)
         setResult(RESULT_OK, intent)
         finish()
     }
 
     override fun showProgress() {
-        super.showProgress()
-        viewModel.processing.postValue(true)
+        super<MVVM>.showProgress()
+        super<BaseActivity>.showProgress()
     }
 
     override fun hideProgress() {
-        if (canHideProgress()) {
-            viewModel.processing.postValue(false)
-        }
-
-        super.hideProgress()
+        super<MVVM>.hideProgress()
+        super<BaseActivity>.hideProgress()
     }
 }

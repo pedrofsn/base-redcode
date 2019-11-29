@@ -1,67 +1,39 @@
 package br.com.redcode.easyrestful.library.domain
 
+import android.content.Context
 import br.com.redcode.base.activities.BaseActivity
-import br.com.redcode.base.utils.Alerts
-import br.com.redcode.base.utils.Constants
-import br.com.redcode.easyreftrofit.library.CallbackNetworkRequest
 import br.com.redcode.easyreftrofit.library.model.ErrorHandled
-import br.com.redcode.easyrestful.library.R
 
-abstract class BaseActivityRestful : BaseActivity(), CallbackNetworkRequest {
+abstract class BaseActivityRestful : BaseActivity(), Networkable {
 
-    // CTRL+C AND CTRL+V FROM BaseActivityMVVMRestful - START
+    override val context: Context by lazy { this@BaseActivityRestful }
 
     override fun onNetworkHttpError(errorHandled: ErrorHandled) {
         runOnUiThread {
-            errorHandled.apply {
-                hideProgress()
-                val callback = {
-                    if (Constants.INVALID_VALUE != actionAPI) {
-                        handleActionAPI(actionAPI, id)
-                    }
-                }
-
-                when {
-                    message.isBlank() -> callback.invoke()
-                    else -> Alerts.showDialogOk(
-                            context = this@BaseActivityRestful,
-                            mensagem = message,
-                            onOk = callback
-                    )
-                }
-            }
+            super.onNetworkHttpError(errorHandled)
         }
     }
 
     override fun onNetworkUnknownError(message: String) {
         runOnUiThread {
-            hideProgress()
-            Alerts.showDialogOk(this, getString(R.string.erro), message)
+            super.onNetworkUnknownError(message)
         }
     }
 
     override fun onNetworkTimeout() {
         runOnUiThread {
-            hideProgress()
-            Alerts.showDialogOk(
-                this,
-                getString(R.string.erro),
-                getString(R.string.o_servidor_demorou_a_responder)
-            )
+            super.onNetworkTimeout()
         }
     }
 
     override fun onNetworkError() {
         runOnUiThread {
-            hideProgress()
-            Alerts.showDialogOk(
-                this,
-                getString(R.string.erro),
-                getString(R.string.error_conectivity)
-            )
+            super.onNetworkError()
         }
     }
 
-    // CTRL+C AND CTRL+V FROM BaseActivityMVVMRestful - END
+    override fun handleActionAPI(action: Int, id: String) {
+        super.handleActionAPI(action, id)
+    }
 
 }

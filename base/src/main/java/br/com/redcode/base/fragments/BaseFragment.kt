@@ -1,5 +1,6 @@
 package br.com.redcode.base.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import br.com.redcode.base.extensions.gone
 import br.com.redcode.base.extensions.visible
 import br.com.redcode.base.interfaces.Alertable
 import br.com.redcode.base.interfaces.Progressable
-
+import br.com.redcode.base.utils.Constants.EMPTY_STRING
 
 /**
  * Created by pedrofsn on 17/10/2017.
@@ -37,7 +38,11 @@ abstract class BaseFragment : Fragment(), Alertable, Progressable {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(layout, container, false)
     }
 
@@ -82,21 +87,21 @@ abstract class BaseFragment : Fragment(), Alertable, Progressable {
 
     open fun getContentView(): View? = null
 
-    override fun showSimpleAlert(message: String, function: (() -> Unit)?) {
+    override fun showSimpleAlert(message: Any?, function: (() -> Unit)?) {
         (activity as? BaseActivity)?.showSimpleAlert(message, function)
     }
 
-    override fun showMessage(message: String, duration: Int) {
+    override fun showMessage(message: Any?, duration: Int) {
         (activity as? BaseActivity)?.showMessage(message, duration)
     }
 
-    override fun toast(message: String?, duration: Int?) {
+    override fun toast(message: Any?, duration: Int?) {
         (activity as? BaseActivity)?.toast(message, duration)
     }
 
     inline fun <reified Activity : AppCompatActivity> goTo(
-            params: Pair<String, Any?>? = null,
-            requestCode: Int? = null
+        params: Pair<String, Any?>? = null,
+        requestCode: Int? = null
     ) {
         val activity = context as? BaseActivity
 
@@ -104,4 +109,10 @@ abstract class BaseFragment : Fragment(), Alertable, Progressable {
     }
 
     override fun finish() = (activity as BaseActivity).finish()
+}
+
+fun Context.getSafeString(message: Any?): String = when {
+    message != null && message is String -> message
+    message != null && message is Int -> getString(message)
+    else -> EMPTY_STRING
 }

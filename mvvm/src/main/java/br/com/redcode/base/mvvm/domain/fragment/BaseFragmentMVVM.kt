@@ -6,25 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProviders
 import br.com.redcode.base.fragments.BaseFragment
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
-import br.com.redcode.base.mvvm.extensions.observer
-import br.com.redcode.base.mvvm.models.Event
+import br.com.redcode.base.mvvm.domain.MVVM
 import br.com.redcode.base.mvvm.models.EventMessage
 
-abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseFragment() {
 
-    protected lateinit var binding: B
-    lateinit var viewModel: VM
-    abstract val classViewModel: Class<VM>
-    abstract val idBRViewModel: Int
+abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseFragment(),
+    MVVM<B, VM> {
 
-    private val observerEvents =
-        observer<Event<EventMessage>> { it ->
-            it.getContentIfNotHandled()?.let { obj -> handleEvent(obj) }
-        }
+    override lateinit var binding: B
+    override lateinit var viewModel: VM
+    abstract override val classViewModel: Class<VM>
+    abstract override val idBRViewModel: Int
+
+    override val observerProcessing by lazy { initObserverProcessing() }
+    override val observerEvents by lazy { initObserverEvents() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,49 +31,35 @@ abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layout, container, false)
         viewModel = ViewModelProviders.of(activity!!).get(classViewModel)
-        binding.setVariable(idBRViewModel, viewModel)
-        binding.setLifecycleOwner(this as LifecycleOwner)
+        defineMVVM(this)
         return binding.root
     }
 
     override fun setupUI() {
         if (activity != null) {
-            (viewModel as AbstractBaseViewModel).events.observe(this, observerEvents)
+            startObservers()
         }
     }
 
-    private fun handleEvent(eventMessage: EventMessage) = activity?.runOnUiThread {
-        handleEvent(eventMessage.event, eventMessage.obj)
+    override fun handleEvent(eventMessage: EventMessage) {
+        activity?.runOnUiThread {
+            handleEvent(eventMessage.event, eventMessage.obj)
+        }
     }
 
-    fun handleEvent(event: String) = activity?.runOnUiThread { handleEvent(event, null) }
-
-    open fun handleEvent(event: String, obj: Any? = null) = activity?.runOnUiThread {
-        when (event) {
-            "showSimpleAlert" -> {
-                if (obj != null && obj is String) {
-                    showSimpleAlert(obj)
-                } else if (obj != null && obj is Int) {
-                    showSimpleAlert(getString(obj))
-                }
-            }
-            "showMessage" -> {
-                if (obj != null && obj is String) {
-                    showMessage(obj)
-                } else if (obj != null && obj is Int) {
-                    showMessage(getString(obj))
-                }
-            }
-            "toast" -> {
-                if (obj != null && obj is String) {
-                    toast(obj)
-                } else if (obj != null && obj is Int) {
-                    toast(getString(obj))
-                }
-            }
-            "showProgressbar" -> showProgress()
-            "hideProgressbar" -> hideProgress()
-            else -> throw RuntimeException("Event not handled in 'handleEvent' method: $event")
+    override fun handleEvent(event: String) {
+        activity?.runOnUiThread {
+            handleEvent(event, null)
         }
+    }
+
+    override fun showProgress() {
+        super<MVVM>.showProgress()
+        super<BaseFragment>.showProgress()
+    }
+
+    override fun hideProgress() {
+        super<MVVM>.hideProgress()
+        super<BaseFragment>.hideProgress()
     }
 }

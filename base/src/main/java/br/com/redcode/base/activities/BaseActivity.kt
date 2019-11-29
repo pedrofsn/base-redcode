@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import br.com.redcode.base.R
 import br.com.redcode.base.extensions.gone
-import br.com.redcode.base.extensions.isVisible
 import br.com.redcode.base.extensions.toLogcat
 import br.com.redcode.base.extensions.visible
+import br.com.redcode.base.fragments.getSafeString
 import br.com.redcode.base.interfaces.Alertable
 import br.com.redcode.base.interfaces.Progressable
 import br.com.redcode.base.utils.Alerts
@@ -116,13 +116,6 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
         supportActionBar?.elevation = 0f
     }
 
-    override fun toast(message: String?, duration: Int?) {
-        message?.let {
-            it.toLogcat()
-            Toast.makeText(this, it, duration ?: Toast.LENGTH_SHORT).show()
-        }
-    }
-
     fun showMessage(message: Int) {
         val messageHandled: String = try {
             getString(message)
@@ -151,16 +144,10 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
     }
 
     override fun hideProgress() = runOnUiThread {
-        if (canHideProgress()) {
-            linearLayoutProgressBar?.gone()
-            processing = false
-            getContentView()?.visible()
-        }
+        linearLayoutProgressBar?.gone()
+        processing = false
+        getContentView()?.visible()
     }
-
-    fun canHideProgress() = processing
-            || linearLayoutProgressBar?.isVisible() == true
-            || getContentView()?.isVisible() == false
 
     open fun getContentView(): View? {
         return null
@@ -227,7 +214,10 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
     }
 
-    inline fun <reified Activity : AppCompatActivity> goTo(requestCode: Int, vararg params: Pair<String, Any?>) {
+    inline fun <reified Activity : AppCompatActivity> goTo(
+        requestCode: Int,
+        vararg params: Pair<String, Any?>
+    ) {
         val intent = Intent(this, Activity::class.java)
         putExtras(intent, *params)
         startActivityForResult(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION), requestCode)
@@ -300,9 +290,24 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
                                     it
                                 )
                             }
-                            (second as? ArrayList<Int>)?.let { intent.putIntegerArrayListExtra(first, it) }
-                            (second as? ArrayList<Parcelable>)?.let { intent.putParcelableArrayListExtra(first, it) }
-                            (second as? ArrayList<String>)?.let { intent.putStringArrayListExtra(first, it) }
+                            (second as? ArrayList<Int>)?.let {
+                                intent.putIntegerArrayListExtra(
+                                    first,
+                                    it
+                                )
+                            }
+                            (second as? ArrayList<Parcelable>)?.let {
+                                intent.putParcelableArrayListExtra(
+                                    first,
+                                    it
+                                )
+                            }
+                            (second as? ArrayList<String>)?.let {
+                                intent.putStringArrayListExtra(
+                                    first,
+                                    it
+                                )
+                            }
                         }
                     }
                 }
@@ -339,12 +344,28 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
 
     open fun clearLocalDataAndGoToLoginScreen() {}
 
-    override fun showSimpleAlert(message: String, function: (() -> Unit)?) {
-        Alerts.showDialogOk(this, getString(R.string.aviso), message, onOk = { function?.invoke() })
+    override fun showSimpleAlert(message: Any?, function: (() -> Unit)?) {
+        with(getSafeString(message)) {
+            Alerts.showDialogOk(
+                this@BaseActivity,
+                getString(R.string.aviso),
+                this,
+                onOk = { function?.invoke() })
+        }
     }
 
-    override fun showMessage(message: String, duration: Int) =
-        getSnackBar(message = message, duration = duration).show()
+    override fun showMessage(message: Any?, duration: Int) {
+        with(getSafeString(message)) {
+            getSnackBar(message = this, duration = duration).show()
+        }
+    }
+
+    override fun toast(message: Any?, duration: Int?) {
+        with(getSafeString(message)) {
+            toLogcat()
+            Toast.makeText(this@BaseActivity, this, duration ?: Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun finish() {
         super.finish()

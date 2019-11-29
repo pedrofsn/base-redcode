@@ -8,9 +8,9 @@ import com.google.android.material.snackbar.Snackbar
  */
 interface Alertable {
 
-    fun showSimpleAlert(message: String, function: (() -> Unit)? = null)
-    fun showMessage(message: String, duration: Int = Snackbar.LENGTH_SHORT)
-    fun toast(message: String?, duration: Int? = null)
+    fun showSimpleAlert(message: Any?, function: (() -> Unit)? = null)
+    fun showMessage(message: Any?, duration: Int = Snackbar.LENGTH_SHORT)
+    fun toast(message: Any?, duration: Int? = null)
     fun finish()
 
 }

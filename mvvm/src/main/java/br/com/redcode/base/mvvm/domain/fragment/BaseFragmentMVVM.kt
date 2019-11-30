@@ -24,6 +24,8 @@ abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
     override val observerProcessing by lazy { initObserverProcessing() }
     override val observerEvents by lazy { initObserverEvents() }
 
+    override var processing: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

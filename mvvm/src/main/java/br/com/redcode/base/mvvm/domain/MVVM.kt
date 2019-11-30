@@ -9,8 +9,7 @@ import br.com.redcode.base.mvvm.extensions.observer
 import br.com.redcode.base.mvvm.models.Event
 import br.com.redcode.base.mvvm.models.EventMessage
 
-interface MVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : Alertable,
-    Progressable {
+interface MVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : Alertable, Progressable {
 
     var binding: B
     var viewModel: VM

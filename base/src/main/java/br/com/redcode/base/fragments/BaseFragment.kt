@@ -24,6 +24,8 @@ abstract class BaseFragment : Fragment(), Alertable, Progressable {
     abstract val layout: Int
     var linearLayoutProgressBar: LinearLayout? = null
 
+    var processing: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true

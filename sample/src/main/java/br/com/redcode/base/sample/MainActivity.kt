@@ -1,6 +1,7 @@
 package br.com.redcode.base.sample
 
 import br.com.redcode.base.activities.BaseActivity
+import br.com.redcode.base.extensions.goTo
 import br.com.redcode.base.sample.contact.ContactActivity
 
 class MainActivity : BaseActivity() {

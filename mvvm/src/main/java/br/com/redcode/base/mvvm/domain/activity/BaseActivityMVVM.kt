@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProviders
 import br.com.redcode.base.activities.BaseActivity
+import br.com.redcode.base.extensions.putExtras
 import br.com.redcode.base.fragments.getSafeString
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.base.mvvm.domain.MVVM
@@ -64,7 +65,7 @@ abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
 
     fun backToStartFlux(vararg params: Pair<String, Any?>?) {
         val intent = Intent()
-        putExtras(intent, *params)
+        intent.putExtras(*params)
         setResult(RESULT_OK, intent)
         finish()
     }

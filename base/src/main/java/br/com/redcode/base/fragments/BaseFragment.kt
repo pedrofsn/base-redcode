@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.redcode.base.R
 import br.com.redcode.base.activities.BaseActivity
+import br.com.redcode.base.extensions.goTo
 import br.com.redcode.base.extensions.gone
 import br.com.redcode.base.extensions.visible
 import br.com.redcode.base.interfaces.Alertable
@@ -24,7 +25,7 @@ abstract class BaseFragment : Fragment(), Alertable, Progressable {
     abstract val layout: Int
     var linearLayoutProgressBar: LinearLayout? = null
 
-    var processing: Boolean = false
+    override var processing: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

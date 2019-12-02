@@ -5,6 +5,8 @@ package br.com.redcode.base.interfaces
  */
 interface Progressable {
 
+    var processing: Boolean
+
     fun showProgress()
     fun hideProgress()
 

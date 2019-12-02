@@ -10,7 +10,6 @@ import br.com.redcode.base.activities.BaseActivity
     CREATED BY @PEDROFSN
 */
 
-
 fun BaseActivity.replace(@IdRes id: Int, fragment: Fragment) = supportFragmentManager
         .beginTransaction()
         .replace(id, fragment)
@@ -26,7 +25,7 @@ fun BaseActivity.hasFragmentNavigation() = supportFragmentManager.backStackEntry
 
 fun BaseActivity.createIntent(clazz: Class<*>, vararg params: Pair<String, Any?>): Intent {
     val intent = Intent(this, clazz)
-    putExtras(intent, *params)
+    intent.putExtras(*params)
     return intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 }
 
@@ -48,7 +47,7 @@ fun BaseActivity.goTo(
     when {
         requestCode != null && params != null -> {
             val intent = Intent(this, clazz)
-            putExtras(intent, params)
+            intent.putExtras(params)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
             startActivityForResult(
@@ -59,7 +58,6 @@ fun BaseActivity.goTo(
 
         requestCode != null && params == null -> {
             val intent = Intent(this, clazz)
-            putExtras(intent, params)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
             startActivityForResult(
@@ -70,7 +68,7 @@ fun BaseActivity.goTo(
 
         requestCode == null && params != null -> {
             val intent = Intent(this, clazz)
-            putExtras(intent, params)
+            intent.putExtras(params)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
             startActivity(intent)
@@ -83,6 +81,12 @@ fun BaseActivity.goTo(
             startActivity(intent)
         }
     }
+}
+
+inline fun <reified Activity : AppCompatActivity> AppCompatActivity.goTo(vararg params: Pair<String, Any?>) {
+    val intent = Intent(this, Activity::class.java)
+    intent.putExtras(*params)
+    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
 }
 
 fun AppCompatActivity.receiveDouble(name: String) = lazy {

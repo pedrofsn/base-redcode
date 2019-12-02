@@ -16,8 +16,6 @@ interface MVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : Alertable, Pro
     val classViewModel: Class<VM>
     val idBRViewModel: Int
 
-    var processing: Boolean
-
     val observerProcessing: Observer<Boolean>
     val observerEvents: Observer<Event<EventMessage>>
 

@@ -14,6 +14,12 @@ interface Networkable : CallbackNetworkRequest,
 
     val context: Context
 
+    fun onNetworkUnknownError(obj: Any?) {
+        if (obj != null && obj is String) {
+            onNetworkUnknownError(obj)
+        }
+    }
+
     override fun onNetworkUnknownError(message: String) {
         hideProgress()
         Alerts.showDialogOk(
@@ -39,6 +45,12 @@ interface Networkable : CallbackNetworkRequest,
             getString(R.string.erro),
             getString(R.string.error_conectivity)
         )
+    }
+
+    fun onNetworkHttpError(obj: Any?) {
+        if (obj != null && obj is ErrorHandled) {
+            onNetworkHttpError(obj)
+        }
     }
 
     override fun onNetworkHttpError(errorHandled: ErrorHandled) {

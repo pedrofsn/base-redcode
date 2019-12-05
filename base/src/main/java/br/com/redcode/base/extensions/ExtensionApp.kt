@@ -17,7 +17,7 @@ inline fun <reified T : Enum<T>> safeEnum(value: String, default: T): T = try {
 fun ErrorAPI.isWithoutErrorInformation() = (isOk().not() && isError().not()) || isOk()
 fun ErrorAPI.getSafeMessage() = extract safe msg
 
-fun onBackToStartFlux(data: Intent?) = data.has("backToStartFlux") == true
+fun onBackToStartFlux(data: Intent?) = data?.has("backToStartFlux") == true
 
 fun Intent?.has(param: String, default: Boolean = false): Boolean {
     return (this as Intent).getBooleanExtra(param, default)

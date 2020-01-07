@@ -2,10 +2,8 @@ package br.com.redcode.base.sample.contact
 
 import br.com.redcode.easyrestful.library.impl.viewmodel.BaseViewModelWithLiveData
 
-class ContactViewModel : BaseViewModelWithLiveData<LabelContact>() {
+class ContactViewModel : BaseViewModelWithLiveData<String>() {
 
-    override fun load() {
-        liveData.postValue(LabelContact(email = "pedrokra@gmail.com"))
-    }
+    override fun load() = liveData.postValue("pedrokra@gmail.com")
 
 }

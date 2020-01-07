@@ -23,6 +23,10 @@ abstract class AbstractBaseViewModel : ViewModel(), LifecycleObserver {
     fun showSimpleAlert(@StringRes message: Int) = sendEventToUI("showSimpleAlert", message)
     fun showSimpleAlert(message: String) = sendEventToUI("showSimpleAlert", message)
     fun showProgressbar(liveData: MutableLiveData<*>) = showProgressbar(liveData.isEmpty())
-    fun showProgressbar(show: Boolean = true) = sendEventToUI(if (show) "showProgressbar" else "hideProgressbar")
+
+    fun showProgressbar(show: Boolean = true) {
+        processing.postValue(show)
+        sendEventToUI(if (show) "showProgressbar" else "hideProgressbar")
+    }
 
 }

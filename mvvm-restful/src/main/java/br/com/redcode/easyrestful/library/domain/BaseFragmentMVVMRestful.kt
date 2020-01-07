@@ -19,6 +19,5 @@ abstract class BaseFragmentMVVMRestful<B : ViewDataBinding, VM : AbstractBaseVie
                 else -> super.handleEvent(event, obj)
             }
         }
-
     }
 }

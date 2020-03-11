@@ -1,12 +1,12 @@
 package br.com.redcode.base.mvvm.restful.databinding.domain
 
 import androidx.databinding.ViewDataBinding
+import br.com.redcode.base.mvvm.databinding.domain.BaseFragmentMVVMDataBinding
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
-import br.com.redcode.base.mvvm.restful.databinding.impl.FragmentMVVMDataBinding
 import br.com.redcode.easyrestful.library.domain.Networkable
 
 abstract class BaseFragmentMVVMRestfulDataBinding<B : ViewDataBinding, VM : AbstractBaseViewModel> :
-    FragmentMVVMDataBinding<B, VM>() {
+    BaseFragmentMVVMDataBinding<B, VM>() {
 
     override fun handleEvent(event: String, obj: Any?) {
         activity?.runOnUiThread {

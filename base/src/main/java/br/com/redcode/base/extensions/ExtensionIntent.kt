@@ -111,3 +111,7 @@ inline fun <reified Activity : AppCompatActivity> AppCompatActivity.goTo(
     intent.putExtras(*params)
     startActivityForResult(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION), requestCode)
 }
+
+fun Intent?.has(param: String, default: Boolean = false): Boolean {
+    return (this as Intent).getBooleanExtra(param, default)
+}

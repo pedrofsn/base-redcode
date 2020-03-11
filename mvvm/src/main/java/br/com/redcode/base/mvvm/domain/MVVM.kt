@@ -1,6 +1,5 @@
 package br.com.redcode.base.mvvm.domain
 
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import br.com.redcode.base.interfaces.Alertable
@@ -9,20 +8,13 @@ import br.com.redcode.base.mvvm.extensions.observer
 import br.com.redcode.base.mvvm.models.Event
 import br.com.redcode.base.mvvm.models.EventMessage
 
-interface MVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : Alertable, Progressable {
+interface MVVM<VM : AbstractBaseViewModel> : Alertable, Progressable {
 
-    var binding: B
     var viewModel: VM
     val classViewModel: Class<VM>
-    val idBRViewModel: Int
 
     val observerProcessing: Observer<Boolean>
     val observerEvents: Observer<Event<EventMessage>>
-
-    fun defineMVVM(lifecycleOwner: LifecycleOwner) {
-        binding.setVariable(idBRViewModel, viewModel)
-        binding.lifecycleOwner = lifecycleOwner
-    }
 
     fun initObserverProcessing(): Observer<Boolean> {
         return observer { processing = it }

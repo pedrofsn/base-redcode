@@ -4,22 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import br.com.redcode.base.fragments.BaseFragment
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.base.mvvm.domain.MVVM
 import br.com.redcode.base.mvvm.models.EventMessage
 
 
-abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseFragment(),
-    MVVM<B, VM> {
+abstract class BaseFragmentMVVM<VM : AbstractBaseViewModel> : BaseFragment(),
+    MVVM<VM> {
 
-    override lateinit var binding: B
     override lateinit var viewModel: VM
     abstract override val classViewModel: Class<VM>
-    abstract override val idBRViewModel: Int
 
     override val observerProcessing by lazy { initObserverProcessing() }
     override val observerEvents by lazy { initObserverEvents() }
@@ -29,10 +25,8 @@ abstract class BaseFragmentMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel>
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, layout, container, false)
-        viewModel = ViewModelProviders.of(activity!!).get(classViewModel)
-        defineMVVM(this)
-        return binding.root
+        viewModel = ViewModelProvider(activity!!).get(classViewModel)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun setupUI() {

@@ -2,12 +2,11 @@ package br.com.redcode.easyrestful.library.domain
 
 
 import android.content.Context
-import androidx.databinding.ViewDataBinding
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.base.mvvm.domain.activity.BaseActivityMVVM
 
-abstract class BaseActivityMVVMRestful<B : ViewDataBinding, VM : AbstractBaseViewModel> :
-    BaseActivityMVVM<B, VM>(), Networkable {
+abstract class BaseActivityMVVMRestful<VM : AbstractBaseViewModel> : BaseActivityMVVM<VM>(),
+    Networkable {
 
     override val context: Context by lazy { this@BaseActivityMVVMRestful }
 

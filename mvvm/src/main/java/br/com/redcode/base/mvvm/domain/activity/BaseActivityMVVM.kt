@@ -3,30 +3,31 @@ package br.com.redcode.base.mvvm.domain.activity
 
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import br.com.redcode.base.activities.BaseActivity
 import br.com.redcode.base.extensions.putExtras
 import br.com.redcode.base.fragments.getSafeString
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.base.mvvm.domain.MVVM
+import br.com.redcode.base.mvvm.domain.MVVMWithDataBinding
 import br.com.redcode.base.mvvm.models.EventMessage
 
-abstract class BaseActivityMVVM<B : ViewDataBinding, VM : AbstractBaseViewModel> : BaseActivity(),
-    MVVM<B, VM> {
+abstract class BaseActivityMVVM<VM : AbstractBaseViewModel> : BaseActivity(),
+    MVVM<VM> {
 
-    override lateinit var binding: B
     override lateinit var viewModel: VM
     abstract override val classViewModel: Class<VM>
-    abstract override val idBRViewModel: Int
 
     override val observerProcessing by lazy { initObserverProcessing() }
     override val observerEvents by lazy { initObserverEvents() }
 
     override fun setupLayout() {
-        binding = DataBindingUtil.setContentView(this, layout)
-        viewModel = ViewModelProviders.of(this).get(classViewModel)
-        defineMVVM(this)
+        when (this) {
+            is MVVMWithDataBinding<*, *> -> binding = DataBindingUtil.setContentView(this, layout)
+            else -> super.setupLayout()
+        }
+
+        viewModel = ViewModelProvider(this).get(classViewModel)
         setupUI()
 
         observeEvents()

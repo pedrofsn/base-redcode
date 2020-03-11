@@ -5,10 +5,9 @@ package br.com.redcode.base.sample.contact
 */
 
 import br.com.redcode.base.sample.R
-import br.com.redcode.base.sample.databinding.ActivityContactBinding
 import br.com.redcode.easyrestful.library.impl.activity.ActivityMVVM
 
-class ContactActivity : ActivityMVVM<ActivityContactBinding, ContactViewModel>() {
+class ContactActivity : ActivityMVVM<ContactViewModel>() {
 
     override val classViewModel = ContactViewModel::class.java
     override val layout = R.layout.activity_contact

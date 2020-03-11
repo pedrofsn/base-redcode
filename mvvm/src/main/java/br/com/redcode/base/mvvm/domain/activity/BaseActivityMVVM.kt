@@ -2,18 +2,15 @@ package br.com.redcode.base.mvvm.domain.activity
 
 
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import br.com.redcode.base.activities.BaseActivity
 import br.com.redcode.base.extensions.putExtras
 import br.com.redcode.base.fragments.getSafeString
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.base.mvvm.domain.MVVM
-import br.com.redcode.base.mvvm.domain.MVVMWithDataBinding
 import br.com.redcode.base.mvvm.models.EventMessage
 
-abstract class BaseActivityMVVM<VM : AbstractBaseViewModel> : BaseActivity(),
-    MVVM<VM> {
+abstract class BaseActivityMVVM<VM : AbstractBaseViewModel> : BaseActivity(), MVVM<VM> {
 
     override lateinit var viewModel: VM
     abstract override val classViewModel: Class<VM>
@@ -22,10 +19,7 @@ abstract class BaseActivityMVVM<VM : AbstractBaseViewModel> : BaseActivity(),
     override val observerEvents by lazy { initObserverEvents() }
 
     override fun setupLayout() {
-        when (this) {
-            is MVVMWithDataBinding<*, *> -> binding = DataBindingUtil.setContentView(this, layout)
-            else -> super.setupLayout()
-        }
+        super.setupLayout()
 
         viewModel = ViewModelProvider(this).get(classViewModel)
         setupUI()

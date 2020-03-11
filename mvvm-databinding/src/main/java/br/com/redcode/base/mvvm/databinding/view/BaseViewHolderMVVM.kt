@@ -1,4 +1,4 @@
-package br.com.redcode.base.mvvm.domain.adapter
+package br.com.redcode.base.mvvm.databinding.view
 
 import android.view.View
 import androidx.databinding.ViewDataBinding

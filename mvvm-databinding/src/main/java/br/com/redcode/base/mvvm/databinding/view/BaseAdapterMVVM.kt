@@ -1,4 +1,4 @@
-package br.com.redcode.base.mvvm.domain.adapter
+package br.com.redcode.base.mvvm.databinding.view
 
 
 import android.view.LayoutInflater
@@ -15,24 +15,31 @@ import br.com.redcode.spinnable.library.model.Spinnable
 /**
  * Created by pedrofsn on 16/10/2017.
  */
-abstract class BaseAdapterMVVM<Data, B : ViewDataBinding>(var myOnItemClickListener: ((Data, Int) -> Unit)? = null) : RecyclerView.Adapter<BaseViewHolderMVVM<Data, B>>() {
+abstract class BaseAdapterMVVM<Data, B : ViewDataBinding>(var myOnItemClickListener: ((Data, Int) -> Unit)? = null) :
+    RecyclerView.Adapter<br.com.redcode.base.mvvm.databinding.view.BaseViewHolderMVVM<Data, B>>() {
 
     abstract var click: ((Data, Int) -> Unit)?
     private val original = arrayListOf<Data>()
     val items = ArrayList<Data>()
     abstract val layout: Int
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolderMVVM<Data, B> {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): br.com.redcode.base.mvvm.databinding.view.BaseViewHolderMVVM<Data, B> {
         val inflater = LayoutInflater.from(parent.context)
         val binding: B = DataBindingUtil.inflate(inflater, layout, parent, false)
         return getViewHolder(binding)
     }
 
-    abstract fun getViewHolder(binding: B): BaseViewHolderMVVM<Data, B>
+    abstract fun getViewHolder(binding: B): br.com.redcode.base.mvvm.databinding.view.BaseViewHolderMVVM<Data, B>
 
-    override fun onBindViewHolder(holder: BaseViewHolderMVVM<Data, B>, position: Int) = holder.bind(
-            data = items[position],
-            onClick = click
+    override fun onBindViewHolder(
+        holder: br.com.redcode.base.mvvm.databinding.view.BaseViewHolderMVVM<Data, B>,
+        position: Int
+    ) = holder.bind(
+        data = items[position],
+        onClick = click
     )
 
     override fun getItemCount() = items.size

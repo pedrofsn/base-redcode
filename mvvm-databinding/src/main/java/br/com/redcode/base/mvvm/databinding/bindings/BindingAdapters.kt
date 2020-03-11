@@ -1,4 +1,4 @@
-package br.com.redcode.base.mvvm.bindings
+package br.com.redcode.base.mvvm.databinding.bindings
 
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
@@ -49,7 +49,10 @@ fun shouldGone(view: View?, yesToGone: Boolean?) {
 
 @BindingAdapter(value = ["app:changeColorTo", "app:case"], requireAll = true)
 fun changeColorTo(view: View?, @ColorInt color: Int?, case: Boolean) {
-    if (case) changeBackground(view, color)
+    if (case) changeBackground(
+        view,
+        color
+    )
 }
 
 @BindingAdapter("app:background")
@@ -120,7 +123,10 @@ fun textColor(view: TextView?, @ColorInt color: Int?) {
 
 @BindingAdapter(value = ["app:changeColorTo", "app:case"], requireAll = true)
 fun changeColorTo(view: TextView?, @ColorInt color: Int?, case: Boolean) {
-    if (case) textColor(view, color)
+    if (case) textColor(
+        view,
+        color
+    )
 }
 
 @BindingAdapter("app:textSize")
@@ -199,14 +205,18 @@ fun bindSwitchCompat(switchCompat: SwitchCompat): Boolean = switchCompat.isCheck
 // -------------------------------------------------------------------------------------------------> EditText
 
 @BindingAdapter("app:onKeyDone")
-fun onKeyDone(editText: EditText?, action: OnKeyPressedListener) {
+fun onKeyDone(
+    editText: EditText?,
+    action: br.com.redcode.base.mvvm.databinding.bindings.OnKeyPressedListener
+) {
     editText?.setOnKeyListener { _, keyCode, event ->
         var handled = false
         if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
             action.onKeyPressed()
 
             editText.apply {
-                val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val inputMethodManager =
+                    context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
             }
 

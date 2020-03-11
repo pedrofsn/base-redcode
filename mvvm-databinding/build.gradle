@@ -1,36 +1,50 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.pedrofsn'
 
 android {
     compileSdkVersion latestSDK
 
     defaultConfig {
-        applicationId "br.com.redcode.base.sample"
         minSdkVersion 16
         targetSdkVersion latestSDK
         versionCode 1
         versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     androidExtensions {
-        experimental true
+        experimental = true
     }
 
     dataBinding {
         enabled true
     }
+
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation project(':mvvm-restful-databinding')
+
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0'
+
+    api project(':mvvm')
 }

@@ -1,1 +1,3 @@
+include ':mvvm-restful-databinding'
+include ':mvvm-databinding'
 include ':sample', ':base', ':mvvm', ':mvvm-restful'

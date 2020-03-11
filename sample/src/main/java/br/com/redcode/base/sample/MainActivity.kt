@@ -4,6 +4,7 @@ import android.view.View
 import br.com.redcode.base.activities.BaseActivity
 import br.com.redcode.base.extensions.goTo
 import br.com.redcode.base.sample.contact.ContactActivity
+import br.com.redcode.base.sample.contact.ContactActivity2
 
 class MainActivity : BaseActivity() {
 
@@ -13,7 +14,8 @@ class MainActivity : BaseActivity() {
 
     }
 
-    fun click(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<ContactActivity>()
+    fun openMVVM(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<ContactActivity2>()
+    fun openMVVMDataBinding(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<ContactActivity>()
     fun openGithub(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<MyGithub>()
 
 }

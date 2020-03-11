@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     api 'com.github.pedrofsn:EasyRetrofit:1.1.0.0'
     api 'com.github.vic797:prowebview:2.2.1'

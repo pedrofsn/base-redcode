@@ -5,8 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import br.com.redcode.base.mvvm.domain.AbstractBaseViewModel
 import br.com.redcode.base.mvvm.domain.MVVM
 
-interface MVVMWithDataBinding<B : ViewDataBinding, VM : AbstractBaseViewModel> :
-    MVVM<VM> {
+interface MVVMWithDataBinding<B : ViewDataBinding, VM : AbstractBaseViewModel> : MVVM<VM> {
 
     var binding: B
     val idBRViewModel: Int

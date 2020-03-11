@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="br.com.redcode.base.mvvm.restful.databinding.FakeViewModelToGenerateBr" />
+            type="br.com.redcode.base.mvvm.restful.databinding.utils.FakeViewModelToGenerateBr" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

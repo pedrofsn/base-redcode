@@ -1,4 +1,4 @@
-package br.com.redcode.base.mvvm.restful.databinding
+package br.com.redcode.base.mvvm.restful.databinding.utils
 
 import br.com.redcode.easyrestful.library.impl.viewmodel.BaseViewModel
 

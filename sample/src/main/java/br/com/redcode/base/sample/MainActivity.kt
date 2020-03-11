@@ -13,7 +13,7 @@ class MainActivity : BaseActivity() {
 
     }
 
-    fun click(view: View?) = goTo<ContactActivity>()
-    fun openGithub(view: View?) = goTo<MyGithub>()
+    fun click(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<ContactActivity>()
+    fun openGithub(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<MyGithub>()
 
 }

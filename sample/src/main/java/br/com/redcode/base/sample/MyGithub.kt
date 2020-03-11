@@ -27,7 +27,12 @@ class MyGithub : BaseActivityWebView() {
                 }
             }
 
-            override fun onInformationReceived(webView: ProWebView?, url: String?, title: String?, favicon: Bitmap?) {
+            override fun onInformationReceived(
+                webView: ProWebView?,
+                url: String?,
+                title: String?,
+                favicon: Bitmap?
+            ) {
                 super.onInformationReceived(webView, url, title, favicon)
                 url?.let { customUrl -> processingURL(customUrl) }
             }
@@ -46,7 +51,11 @@ class MyGithub : BaseActivityWebView() {
         webView.onRestoreInstanceState(savedInstanceState)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        @NonNull permissions: Array<String>,
+        @NonNull grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         webView.onRequestPermissionResult(requestCode, permissions, grantResults)
     }

@@ -20,7 +20,11 @@ abstract class BaseDialogFragment : DialogFragment() {
     open var dialogWidth = 300
     open var dialogHeight = 250
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(layout, container, false)
         dialog?.setCanceledOnTouchOutside(canceledOnTouchOutside)
         configureDialogSize()

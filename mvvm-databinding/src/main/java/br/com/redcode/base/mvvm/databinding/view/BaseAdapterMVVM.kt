@@ -122,8 +122,8 @@ abstract class BaseAdapterMVVM<Data, B : ViewDataBinding>(var myOnItemClickListe
             if (query?.isNotBlank() == true) {
                 setCustomList(items.filter { obj ->
                     getFilterable()?.invoke(
-                            obj,
-                            query
+                        obj,
+                        query
                     ) == true
                 }) // obj.getTextLine1().contains(query) || obj.getTextLine2().contains(query)
             } else {

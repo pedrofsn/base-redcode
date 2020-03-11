@@ -47,7 +47,10 @@ fun String.toTime24h(): Calendar? {
 fun String.shareText(context: Context, labelInstruction: String) {
     val sharingIntent = Intent(android.content.Intent.ACTION_SEND)
     sharingIntent.type = "text/plain"
-    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, context.getString(R.string.app_name))
+    sharingIntent.putExtra(
+        android.content.Intent.EXTRA_SUBJECT,
+        context.getString(R.string.app_name)
+    )
     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, this)
     context.startActivity(Intent.createChooser(sharingIntent, labelInstruction))
 }

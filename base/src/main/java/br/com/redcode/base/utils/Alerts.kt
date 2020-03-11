@@ -16,31 +16,39 @@ import java.util.*
  */
 object Alerts {
 
-    fun showDatePicker(context: Context, calendar: Calendar, callback: DatePickerDialog.OnDateSetListener) {
+    fun showDatePicker(
+        context: Context,
+        calendar: Calendar,
+        callback: DatePickerDialog.OnDateSetListener
+    ) {
         DatePickerDialog(
-                context,
-                callback,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
+            context,
+            callback,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
         ).show()
     }
 
-    fun showTimePicker(context: Context, calendar: Calendar, callback: TimePickerDialog.OnTimeSetListener) {
+    fun showTimePicker(
+        context: Context,
+        calendar: Calendar,
+        callback: TimePickerDialog.OnTimeSetListener
+    ) {
         TimePickerDialog(
-                context,
-                callback,
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                true
+            context,
+            callback,
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(Calendar.MINUTE),
+            true
         ).show()
     }
 
     fun showDialogOk(
-            context: Context,
-            title: String = context.getString(R.string.aviso),
-            mensagem: String,
-            onOk: (() -> Unit)? = null
+        context: Context,
+        title: String = context.getString(R.string.aviso),
+        mensagem: String,
+        onOk: (() -> Unit)? = null
     ) {
         if (context is AppCompatActivity && context.isFinishing.not()) {
             val alert = AlertDialog.Builder(context)
@@ -59,15 +67,15 @@ object Alerts {
     }
 
     fun getDialogSimpleList(
-            context: Context,
-            options: List<String>,
-            callback: DialogInterface.OnClickListener
+        context: Context,
+        options: List<String>,
+        callback: DialogInterface.OnClickListener
     ): AlertDialog {
         val finalOptions: Array<String> = options.toTypedArray()
         return AlertDialog.Builder(context)
-                .setCancelable(true)
-                .setItems(finalOptions, callback)
-                .create()
+            .setCancelable(true)
+            .setItems(finalOptions, callback)
+            .create()
     }
 
     fun showDialogYesOrNot(context: Context, message: String, callback: () -> Unit) {
@@ -97,21 +105,21 @@ object Alerts {
         callbackNo: DialogInterface.OnClickListener
     ): AlertDialog {
         val builder = AlertDialog.Builder(context)
-                .setTitle(title)
-                .setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton(context.getString(R.string.yes), callbackYes)
-                .setNegativeButton(context.getString(R.string.no), callbackNo)
+            .setTitle(title)
+            .setMessage(message)
+            .setCancelable(false)
+            .setPositiveButton(context.getString(R.string.yes), callbackYes)
+            .setNegativeButton(context.getString(R.string.no), callbackNo)
 
         return builder.create()
     }
 
     fun showDialogYesOrNot(
-            context: Context,
-            title: String,
-            message: String,
-            onYes: () -> Unit,
-            onNo: (() -> Unit)? = null
+        context: Context,
+        title: String,
+        message: String,
+        onYes: () -> Unit,
+        onNo: (() -> Unit)? = null
     ): AlertDialog {
         val callbackYes = DialogInterface.OnClickListener { dialog, _ ->
             dialog.dismiss()

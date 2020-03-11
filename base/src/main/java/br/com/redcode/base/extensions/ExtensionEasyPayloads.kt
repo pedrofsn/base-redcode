@@ -9,10 +9,10 @@ fun List<Payload<Spinnable>>?.toModel2(): List<Spinnable>? = this?.map { obj -> 
 
 object extract {
     infix fun <T> safe(list: List<Payload<T>>?): List<T> = list?.toModel()
-            ?: emptyList()
+        ?: emptyList()
 
     infix fun safeSpinnable(list: List<Payload<Spinnable>>?): List<Spinnable> = list?.toModel2()
-            ?: emptyList()
+        ?: emptyList()
 
     infix fun <T> safe(obj: Payload<T>?): T? = obj?.toModel()
     infix fun safe(value: String?): String = value ?: EMPTY_STRING

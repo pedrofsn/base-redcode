@@ -30,29 +30,38 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 /**
  * Created by pedrofsn on 03/02/18.
  */
-class ScrollAwareFABBehavior(context: Context, attrs: AttributeSet) : FloatingActionButton.Behavior() {
+class ScrollAwareFABBehavior(context: Context, attrs: AttributeSet) :
+    FloatingActionButton.Behavior() {
     private var mIsAnimatingOut = false
 
     override fun onStartNestedScroll(
-            coordinatorLayout: CoordinatorLayout, child: FloatingActionButton,
-            directTargetChild: View, target: View, nestedScrollAxes: Int
+        coordinatorLayout: CoordinatorLayout, child: FloatingActionButton,
+        directTargetChild: View, target: View, nestedScrollAxes: Int
     ): Boolean {
         // Ensure we react to vertical scrolling
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL || super.onStartNestedScroll(
-                coordinatorLayout,
-                child,
-                directTargetChild,
-                target,
-                nestedScrollAxes
+            coordinatorLayout,
+            child,
+            directTargetChild,
+            target,
+            nestedScrollAxes
         )
     }
 
     override fun onNestedScroll(
-            coordinatorLayout: CoordinatorLayout, child: FloatingActionButton,
-            target: View, dxConsumed: Int, dyConsumed: Int,
-            dxUnconsumed: Int, dyUnconsumed: Int
+        coordinatorLayout: CoordinatorLayout, child: FloatingActionButton,
+        target: View, dxConsumed: Int, dyConsumed: Int,
+        dxUnconsumed: Int, dyUnconsumed: Int
     ) {
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
+        super.onNestedScroll(
+            coordinatorLayout,
+            child,
+            target,
+            dxConsumed,
+            dyConsumed,
+            dxUnconsumed,
+            dyUnconsumed
+        )
         if (dyConsumed > 0 && !this.mIsAnimatingOut && child.visibility == View.VISIBLE) {
             // User scrolled down and the FAB is currently visible -> hide the FAB
             animateOut(child)

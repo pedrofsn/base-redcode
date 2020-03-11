@@ -20,7 +20,11 @@ abstract class BaseDialog : DialogFragment() {
 
     lateinit var mView: View
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         mView = inflater.inflate(layout, container, false)
         dialog?.setCanceledOnTouchOutside(canceledOnTouchOutside)
         configureDialogSize()
@@ -34,21 +38,5 @@ abstract class BaseDialog : DialogFragment() {
     }
 
     abstract fun afterOnCreate()
-
-    override fun onResume() {
-        super.onResume()
-//        val width = activity?.resources?.displayMetrics?.widthPixels
-//        val height = activity?.resources?.displayMetrics?.heightPixels
-//
-//        if (width != null && height != null) {
-//            val params = dialog.window?.attributes
-//            val hasDimensions = dialogWidth != null && dialogHeight != null
-//
-//            params?.width = if (hasDimensions) dialogWidth else percentDialogSize * width / 100
-//            params?.height = if (hasDimensions) dialogHeight else percentDialogSize * height / 100
-//
-//            dialog.window?.attributes = params as android.view.WindowManager.LayoutParams
-//        }
-    }
 
 }

@@ -14,7 +14,8 @@ abstract class AbstractBaseViewModel : ViewModel(), LifecycleObserver {
     val events = MutableLiveData<Event<EventMessage>>()
 
     fun sendEventToUI(event: String) = events.postValue(Event(EventMessage(event)))
-    fun sendEventToUI(event: String, obj: Any? = null) = events.postValue(Event(EventMessage(event, obj)))
+    fun sendEventToUI(event: String, obj: Any? = null) =
+        events.postValue(Event(EventMessage(event, obj)))
 
     fun toast(message: String) = sendEventToUI("toast", message)
     fun toast(@StringRes message: Int) = sendEventToUI("toast", message)

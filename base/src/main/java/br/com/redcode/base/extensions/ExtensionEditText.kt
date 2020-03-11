@@ -15,7 +15,8 @@ import android.widget.EditText
 fun EditText.getString(): String {
 
     // HIDE KEYBOARD
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 
     return text.toString().trim()

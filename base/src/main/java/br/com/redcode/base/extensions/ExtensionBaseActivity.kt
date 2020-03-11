@@ -11,15 +11,15 @@ import br.com.redcode.base.activities.BaseActivity
 */
 
 fun BaseActivity.replace(@IdRes id: Int, fragment: Fragment) = supportFragmentManager
-        .beginTransaction()
-        .replace(id, fragment)
-        .commit()
+    .beginTransaction()
+    .replace(id, fragment)
+    .commit()
 
 fun BaseActivity.change(@IdRes id: Int, fragment: Fragment) = supportFragmentManager
-        .beginTransaction()
-        .add(id, fragment)
-        .addToBackStack("teste")
-        .commit()
+    .beginTransaction()
+    .add(id, fragment)
+    .addToBackStack("teste")
+    .commit()
 
 fun BaseActivity.hasFragmentNavigation() = supportFragmentManager.backStackEntryCount > 0
 
@@ -40,9 +40,9 @@ fun BaseActivity.goTo(requestCode: Int, clazz: Class<*>, vararg params: Pair<Str
 }
 
 fun BaseActivity.goTo(
-        clazz: Class<*>,
-        params: Pair<String, Any?>? = null,
-        requestCode: Int? = null
+    clazz: Class<*>,
+    params: Pair<String, Any?>? = null,
+    requestCode: Int? = null
 ) {
     when {
         requestCode != null && params != null -> {
@@ -51,8 +51,8 @@ fun BaseActivity.goTo(
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
             startActivityForResult(
-                    intent,
-                    requestCode
+                intent,
+                requestCode
             )
         }
 
@@ -61,8 +61,8 @@ fun BaseActivity.goTo(
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
             startActivityForResult(
-                    intent,
-                    requestCode
+                intent,
+                requestCode
             )
         }
 

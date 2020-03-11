@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Created by pedrofsn on 16/10/2017.
  */
-abstract class BaseViewHolderMVVM<Data, B : ViewDataBinding>(val binding: B) : RecyclerView.ViewHolder(binding.root) {
+abstract class BaseViewHolderMVVM<Data, B : ViewDataBinding>(val binding: B) :
+    RecyclerView.ViewHolder(binding.root) {
 
     protected fun context() = binding.root.context
 

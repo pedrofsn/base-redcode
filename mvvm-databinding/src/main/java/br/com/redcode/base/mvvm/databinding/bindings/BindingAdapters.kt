@@ -134,7 +134,8 @@ fun textSize(view: TextView?, @DimenRes dimen: Int?) {
     if (view != null && dimen != null) {
         view.context.resources.apply {
             val textSizeInSp = getDimension(dimen)
-            val size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSizeInSp, displayMetrics)
+            val size =
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSizeInSp, displayMetrics)
             view.textSize = size
         }
     }
@@ -152,7 +153,10 @@ fun textOrHide(view: TextView?, text: String?) {
     }
 }
 
-@BindingAdapter(value = ["app:changeTextFrom", "app:changeTextTo", "app:caseText"], requireAll = true)
+@BindingAdapter(
+    value = ["app:changeTextFrom", "app:changeTextTo", "app:caseText"],
+    requireAll = true
+)
 fun changeTextTo(
     textView: TextView?,
     @StringRes changeFrom: Int?,

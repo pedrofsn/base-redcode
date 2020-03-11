@@ -11,8 +11,7 @@ import br.com.redcode.base.mvvm.domain.MVVM
 import br.com.redcode.base.mvvm.models.EventMessage
 
 
-abstract class BaseFragmentMVVM<VM : AbstractBaseViewModel> : BaseFragment(),
-    MVVM<VM> {
+abstract class BaseFragmentMVVM<VM : AbstractBaseViewModel> : BaseFragment(), MVVM<VM> {
 
     override lateinit var viewModel: VM
     abstract override val classViewModel: Class<VM>

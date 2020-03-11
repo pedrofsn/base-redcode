@@ -16,4 +16,5 @@ class ContactActivity : ActivityMVVM<ContactViewModel>() {
         enableHomeAsUpActionBar()
         viewModel.load()
     }
+
 }

@@ -5,5 +5,4 @@
 mvvm-restful/libs/
 mvvm/libs/
 sample/libs/
-/.idea/codeStyles/Project.xml
-/.idea/codeStyles/codeStyleConfig.xml
+/.idea/*

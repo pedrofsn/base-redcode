@@ -153,9 +153,7 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Pr
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-
-        if (id == android.R.id.home) {
+        if (item.itemId == android.R.id.home) {
             onBackMenuItemPressed()
         }
 

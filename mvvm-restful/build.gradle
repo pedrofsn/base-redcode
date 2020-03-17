@@ -7,11 +7,11 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.pedrofsn'
 
 android {
-    compileSdkVersion latestSDK
+    compileSdkVersion versions.targetSDK
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion latestSDK
+        minSdkVersion versions.minSDK
+        targetSdkVersion versions.targetSDK
         versionCode 1
         versionName "1.0"
 
@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation deps.kotlin.stdlib
 
     api 'com.github.pedrofsn:EasyRetrofit:1.1.0.0'
     api 'com.github.vic797:prowebview:2.2.1'

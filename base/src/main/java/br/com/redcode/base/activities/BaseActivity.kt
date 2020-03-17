@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import br.com.redcode.base.R
 import br.com.redcode.base.extensions.gone
 import br.com.redcode.base.extensions.putExtras
@@ -28,7 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 /**
  * Created by pedrofsn on 16/10/2017.
  */
-abstract class BaseActivity : AppCompatActivity(), LifecycleOwner, Alertable, Progressable {
+abstract class BaseActivity : AppCompatActivity(), Alertable, Progressable {
 
     abstract val layout: Int
     open var isFullscreen: Boolean = false

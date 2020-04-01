@@ -197,16 +197,22 @@ abstract class BaseActivity : AppCompatActivity(), Alertable, Progressable {
     fun onBackPressed(view: View?) = onBackPressed()
 
     override fun onBackPressed() {
-        if (isProcessingWithAlert().not()) {
+        if (canRunBackPressed()) {
             super.onBackPressed()
         }
     }
 
-    fun isProcessingWithAlert(): Boolean {
+    open fun canRunBackPressed() = isProcessingWithAlert().not()
+
+    open fun isProcessingWithAlert(): Boolean {
         if (processing) {
-            showMessage(getString(R.string._wait))
+            showMessageProcessing()
         }
         return processing
+    }
+
+    open fun showMessageProcessing() {
+        showMessage(getString(R.string._wait))
     }
 
     open fun handleActionAPI(action: Int, id: String) {

@@ -160,11 +160,15 @@ object BindingAdapters2 {
         val watcher = object : TextWatcher {
             override fun afterTextChanged(editable: Editable?) {
                 val input = view.editableText?.toString()
-                val count = input?.count() ?: 0
+                val count = input?.length ?: 0
 
                 if (count > 0) {
                     val index = stringEntries.indexOf(input)
-                    entries?.select(index)
+
+                    when {
+                        index.isValid() -> entries?.select(index)
+                        else -> entries?.clearSelection()
+                    }
 
                     listener?.onChange()
                     trigger?.invoke()

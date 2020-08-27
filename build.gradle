@@ -1,9 +1,10 @@
 buildscript {
+
     ext.versions = [
             'minSDK'    : 16,
             'targetSDK' : 29,
 
-            'kotlin'    : '1.3.71'
+            'kotlin'    : '1.4.0'
     ]
 
     ext.deps = [
@@ -11,6 +12,7 @@ buildscript {
                     'stdlib': "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
             ]
     ]
+
     repositories {
         google()
         jcenter()
@@ -19,7 +21,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:4.0.1'
     }
 }
 

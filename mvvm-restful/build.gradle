@@ -39,7 +39,7 @@ android {
 dependencies {
     implementation deps.kotlin.stdlib
 
-    api 'com.github.pedrofsn:EasyRetrofit:1.2.0.0'
+    api 'com.github.pedrofsn.easyretrofit:kotlin-easy-retrofit:1.3.0'
     api 'com.github.vic797:prowebview:2.2.1'
 
     // Coroutines

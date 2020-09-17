@@ -1,8 +1,8 @@
 package br.com.redcode.base.rest
 
-import br.com.redcode.base.extensions.extract
 import br.com.redcode.base.models.ErrorAPI
 import br.com.redcode.base.utils.Constants.INVALID_VALUE
+import extract
 import java.io.Serializable
 
 /**

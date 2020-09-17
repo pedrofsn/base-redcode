@@ -8,6 +8,7 @@ import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import br.com.redcode.base.models.ErrorAPI
 import br.com.redcode.base.utils.Constants
+import extract
 
 /*
     CREATED BY @PEDROFSN

@@ -39,6 +39,10 @@ android {
         experimental = true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -48,4 +52,6 @@ dependencies {
 
     api 'com.github.pedrofsn:spinnable:1.1.0.2'
     api 'com.jakewharton.timber:timber:4.7.1'
+
+    api 'com.github.pedrofsn:k-extractor:1.0.0'
 }

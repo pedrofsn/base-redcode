@@ -4,7 +4,7 @@ buildscript {
             'minSDK'    : 16,
             'targetSDK' : 29,
 
-            'kotlin'    : '1.4.0'
+            'kotlin'    : '1.4.10'
     ]
 
     ext.deps = [

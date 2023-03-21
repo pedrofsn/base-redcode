@@ -50,14 +50,15 @@ dependencies {
     api project(':mvvm-restful')
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = "com.github.pedrofsn"
+            artifactId = "base-redcode"
+            version = '23.3.20.1'
+
+            afterEvaluate {
                 from components.release
-                groupId = "com.github.pedrofsn"
-                artifactId = "base-redcode"
-                version = '23.3.20.1'
             }
         }
     }

@@ -1,9 +1,9 @@
 buildscript {
 
     ext.versions = [
-            'minSDK'    : 21,
-            'targetSDK' : 33,
-            'kotlin'    : '1.7.21'
+            'minSDK'   : 21,
+            'targetSDK': 33,
+            'kotlin'   : '1.7.21'
     ]
 
     ext.deps = [

@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion versions.targetSDK
@@ -41,4 +42,17 @@ android {
 dependencies {
     implementation deps.kotlin.stdlib
     api project(':mvvm-restful')
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = "com.github.pedrofsn"
+                artifactId = "base-redcode"
+                version = '23.3.20.1'
+            }
+        }
+    }
 }

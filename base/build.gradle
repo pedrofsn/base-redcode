@@ -39,6 +39,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -47,7 +51,7 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.6.1'
 
     api 'com.github.pedrofsn:spinnable:1.1.0.2'
-    api 'com.jakewharton.timber:timber:4.7.1'
+    api 'com.jakewharton.timber:timber:5.0.1'
 
     api 'com.github.pedrofsn:k-extractor:1.0.0'
 }

@@ -27,11 +27,6 @@ abstract class BaseFragment : Fragment(), Alertable, Progressable {
 
     override var processing: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupUI()

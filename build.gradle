@@ -1,10 +1,9 @@
 buildscript {
 
     ext.versions = [
-            'minSDK'    : 16,
-            'targetSDK' : 29,
-
-            'kotlin'    : '1.4.10'
+            'minSDK'    : 21,
+            'targetSDK' : 33,
+            'kotlin'    : '1.7.21'
     ]
 
     ext.deps = [
@@ -15,20 +14,19 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 }

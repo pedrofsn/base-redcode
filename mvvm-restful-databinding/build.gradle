@@ -3,24 +3,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.github.pedrofsn'
-
 android {
     compileSdkVersion versions.targetSDK
 
     defaultConfig {
         minSdkVersion versions.minSDK
         targetSdkVersion versions.targetSDK
-        versionCode 1
-        versionName "1.0"
 
         vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
         debug {
-            debuggable true
             minifyEnabled false
             shrinkResources false
         }

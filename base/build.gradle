@@ -3,17 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.github.pedrofsn'
-
 android {
     compileSdkVersion versions.targetSDK
 
     defaultConfig {
         minSdkVersion versions.minSDK
         targetSdkVersion versions.targetSDK
-        versionCode 1
-        versionName "1.0"
         resConfigs 'pt'
 
         vectorDrawables.useSupportLibrary = true
@@ -21,7 +16,6 @@ android {
 
     buildTypes {
         debug {
-            debuggable true
             minifyEnabled false
             shrinkResources false
         }
@@ -30,10 +24,12 @@ android {
             minifyEnabled false
         }
     }
-
     packagingOptions {
-        exclude 'META-INF/rxjava.properties'
+        resources {
+            excludes += ['META-INF/rxjava.properties']
+        }
     }
+
 
     androidExtensions {
         experimental = true
@@ -47,8 +43,8 @@ android {
 
 dependencies {
     implementation deps.kotlin.stdlib
-    api 'com.google.android.material:material:1.1.0'
-    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'com.google.android.material:material:1.8.0'
+    api 'androidx.appcompat:appcompat:1.6.1'
 
     api 'com.github.pedrofsn:spinnable:1.1.0.2'
     api 'com.jakewharton.timber:timber:4.7.1'

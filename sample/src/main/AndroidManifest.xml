@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="br.com.redcode.base.sample">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,14 +24,17 @@
 
         <activity
             android:name=".MyGithub"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor"
+            android:exported="false" />
 
         <activity
             android:name=".contact.ContactActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor"
+            android:exported="false" />
         <activity
             android:name=".contact.ContactActivity2"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor"
+            android:exported="false" />
 
     </application>
 

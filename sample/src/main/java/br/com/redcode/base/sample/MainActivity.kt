@@ -16,6 +16,8 @@ class MainActivity : BaseActivity() {
 
     fun openMVVM(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<ContactActivity2>()
     fun openMVVMDataBinding(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<ContactActivity>()
-    fun openGithub(@Suppress("UNUSED_PARAMETER") view: View?) = goTo<MyGithub>()
+    fun openGithub(@Suppress("UNUSED_PARAMETER") view: View?) {
+        toast("Maybe on future")
+    }
 
 }
